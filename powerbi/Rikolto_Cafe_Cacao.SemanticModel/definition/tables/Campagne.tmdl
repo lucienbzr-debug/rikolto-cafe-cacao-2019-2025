@@ -1,0 +1,28 @@
+/// Dimension des campagnes caféières annuelles 2019-2025 (une ligne par campagne).
+table Campagne
+
+	/// Année de la campagne (clé de relation).
+	column Année
+		dataType: int64
+		isKey
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Année
+
+	/// Libellé texte de la campagne, trié chronologiquement.
+	column 'Libellé campagne'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Libellé campagne
+		sortByColumn: Année
+
+	partition Campagne = m
+		mode: import
+		source =
+				let
+				    #"Liste des années" = Table.FromList({2019..2025}, Splitter.SplitByNothing(), {"Année"}),
+				    #"Type entier" = Table.TransformColumnTypes(#"Liste des années", {{"Année", Int64.Type}}),
+				    #"Libellé ajouté" = Table.AddColumn(#"Type entier", "Libellé campagne", each Text.From([Année]), type text)
+				in
+				    #"Libellé ajouté"
+

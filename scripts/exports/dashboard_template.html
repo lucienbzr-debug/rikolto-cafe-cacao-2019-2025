@@ -1,0 +1,428 @@
+<title>Rikolto Café &amp; Cacao</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout : bandeau de marque, onglets = pages du dashboard Power BI, filtres en tête d'onglet, tuiles KPI puis graphiques en grille qui passe à une colonne sur mobile */
+:root{
+  --bg:#F1F3EF; --surface:#FCFCFA; --ink:#1B2622; --muted:#56635C; --line:#DCE1DA;
+  --green:#1F5C4A; --green-soft:#E3EEE8; --coffee:#8C5A3C; --tan:#DDB690; --amber:#B07A12; --slate:#4A6FA5; --red:#B23A48; --red-soft:#F6E4E6; --amber-soft:#F5EBD6; --sage:#9DBFAE;
+  --band:#1F5C4A; --band-ink:#F1F5F2; --band-muted:#BFD6CB;
+  --f-display:'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --f-body:'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+  --f-data:'IBM Plex Mono', Consolas, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111714; --surface:#19211D; --ink:#E4EBE7; --muted:#9BAAA2; --line:#2B3731;
+  --green:#62B393; --green-soft:#1E3129; --coffee:#CF9670; --tan:#7E5E43; --amber:#DDA842; --slate:#86A6D8; --red:#E57A87; --red-soft:#3A2227; --amber-soft:#35291A; --sage:#3F6E5A;
+  --band:#15352B; --band-ink:#E4EFE9; --band-muted:#9CC3B2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111714; --surface:#19211D; --ink:#E4EBE7; --muted:#9BAAA2; --line:#2B3731;
+  --green:#62B393; --green-soft:#1E3129; --coffee:#CF9670; --tan:#7E5E43; --amber:#DDA842; --slate:#86A6D8; --red:#E57A87; --red-soft:#3A2227; --amber-soft:#35291A; --sage:#3F6E5A;
+  --band:#15352B; --band-ink:#E4EFE9; --band-muted:#9CC3B2; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0}
+.wrap{max-width:1320px;margin:0 auto;padding-inline:20px;padding-block:0 40px}
+header.brand{background:var(--band);color:var(--band-ink)}
+header.brand .wrap{padding-block:22px 0;display:flex;flex-direction:column;gap:14px}
+.brand-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.brand h1{font-family:var(--f-display);font-weight:600;font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.1;margin:0;text-wrap:balance}
+.brand .sub{color:var(--band-muted);font-size:.9rem;margin:4px 0 0}
+.brand .meta{color:var(--band-muted);font-size:.8rem;text-align:right;letter-spacing:.02em}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{font:inherit;font-size:.9rem;font-weight:500;color:var(--band-muted);background:transparent;border:0;border-radius:8px 8px 0 0;padding:10px 16px;cursor:pointer;white-space:nowrap}
+nav.tabs button:hover{color:var(--band-ink)}
+nav.tabs button[aria-selected="true"]{background:var(--bg);color:var(--ink);font-weight:600}
+nav.tabs button:focus-visible,select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.page-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;padding-block:24px 16px}
+.page-head h2{font-family:var(--f-display);font-weight:600;font-size:1.45rem;margin:0;text-wrap:balance}
+.page-head p{margin:4px 0 0;color:var(--muted);font-size:.9rem;max-width:70ch}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+select{font:inherit;font-size:.9rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 30px 7px 10px;min-width:150px;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px;background-repeat:no-repeat;cursor:pointer}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.kpi{background:var(--surface);padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;min-width:0;position:relative}
+.kpi::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--k,var(--green))}
+.kpi .lab{font-size:.78rem;color:var(--muted)}
+.kpi .val{font-family:var(--f-display);font-weight:600;font-size:1.9rem;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kpi .note{font-size:.74rem;color:var(--muted)}
+.tag-est{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);background:var(--amber-soft);border-radius:4px;padding:1px 6px;margin-left:4px;vertical-align:1px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.card h3{font-size:1rem;font-weight:600;margin:0}
+.card .cap{font-size:.82rem;color:var(--muted);margin:-6px 0 0}
+.s12{grid-column:span 12}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}
+@media (max-width:900px){.s8,.s7,.s6,.s5,.s4{grid-column:span 12}}
+.chart{position:relative;height:280px}
+.chart.tall{height:320px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th{font-size:.74rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right}
+tr.tot td{font-weight:600;border-bottom:0;border-top:2px solid var(--line)}
+td.low{color:var(--red);font-weight:600}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.pill.Critique{background:var(--red);color:var(--surface)}
+.pill.Élevée{background:var(--red-soft);color:var(--red)}
+.pill.Moyenne{background:var(--amber-soft);color:var(--amber)}
+.pill.Faible{background:var(--green-soft);color:var(--green)}
+.msgs{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px;font-size:.9rem;max-width:80ch}
+.msgs li.alert{color:var(--red);font-weight:600}
+.callout{border-left:4px solid var(--red);background:var(--red-soft);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-size:.88rem}
+.callout h3{color:var(--red);margin:0 0 6px}
+.callout ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.callout .reco{color:var(--green);font-weight:600;margin:8px 0 0}
+.foot{color:var(--muted);font-size:.78rem;margin-top:14px;max-width:110ch}
+.mono{font-family:var(--f-data);font-size:.82rem}
+ol.pv{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;font-size:.88rem}
+ol.pv li:last-child{color:var(--green);font-weight:600}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="brand">
+  <div class="wrap">
+    <div class="brand-top">
+      <div>
+        <h1>Rikolto RDC · Café &amp; Cacao</h1>
+        <p class="sub">Tableau de bord direction · campagnes café 2019-2025 et enquête revenu vital cacao 2024</p>
+      </div>
+      <p class="meta">Analyse septembre 2026<br>Seuil Anker RDC rurale 2025 : 2&#8239;628 USD/an</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Pages du tableau de bord">
+      <button role="tab" id="tab-synthese" data-tab="synthese">1. Synthèse</button>
+      <button role="tab" id="tab-benef" data-tab="benef">2. Café · Bénéficiaires</button>
+      <button role="tab" id="tab-eco" data-tab="eco">3. Café · Économie</button>
+      <button role="tab" id="tab-cacao" data-tab="cacao">4. Cacao · Revenu vital</button>
+      <button role="tab" id="tab-qualite" data-tab="qualite">5. Qualité des données</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="view" role="tabpanel"></main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const P = DATA.params;
+const LI = P['Seuil revenu vital ménage (USD/an)'];
+const YEARS = [...new Set(DATA.cafe.map(c => c.annee))].sort();
+const OPS = [...new Set(DATA.cafe.map(c => c.op))].sort();
+const SECTIONS = [...new Set(DATA.menages.map(m => m.Section))].sort();
+const SEV_ORDER = {'Critique':0,'Élevée':1,'Moyenne':2,'Faible':3};
+const state = {tab:'synthese', annee:'Tout', op:'Tout', section:'Tout', base:'Tout', grav:'Tout'};
+try { const t = localStorage.getItem('rk-tab'); if (t) state.tab = t; } catch(e) {}
+const h = location.hash.replace('#','');
+if (['synthese','benef','eco','cacao','qualite'].includes(h)) state.tab = h;
+
+// ---------- format
+const nf0 = new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0});
+const nf1 = new Intl.NumberFormat('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const nf2 = new Intl.NumberFormat('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const n0 = v => v == null || isNaN(v) ? '–' : nf0.format(v);
+const pc = (v,d=1) => v == null || isNaN(v) ? '–' : (d ? nf1 : nf0).format(v*100) + ' %';
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const median = a => { const s = a.filter(v => v != null).sort((x,y)=>x-y); if (!s.length) return null; const m = Math.floor(s.length/2); return s.length % 2 ? s[m] : (s[m-1]+s[m])/2; };
+const mean = a => a.length ? a.reduce((x,y)=>x+y,0)/a.length : null;
+const tok = n => getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();
+
+// ---------- café
+const cells = (annee, op) => DATA.cafe.filter(c => (annee==='Tout' || c.annee==+annee) && (op==='Tout' || c.op===op));
+function sum(cs){ const o = {}; cs.forEach(c => { for (const k in c) if (typeof c[k]==='number' && k!=='annee') o[k]=(o[k]||0)+c[k]; }); return o; }
+function uniques(annee, op){
+  if (annee==='Tout' && op==='Tout') return DATA.uniques.total;
+  if (op==='Tout') return DATA.uniques.annee[annee];
+  if (annee==='Tout') return DATA.uniques.op[op];
+  const c = cells(annee, op)[0]; return c ? c.uniques : 0;
+}
+function retention(annee, op){
+  const cs = cells(annee, op); if (!cs.length) return null;
+  const y = annee==='Tout' ? Math.max(...cs.map(c=>c.annee)) : +annee;
+  const cur = sum(cells(String(y), op)), prev = sum(cells(String(y-1), op));
+  if (!prev.n || prev.n < 30) return null;
+  return cur.present_n1 / prev.n;
+}
+const pJeunes = s => s.n ? s.jeunes/s.n : null; // même définition que le rapport et Power BI : jeunes / producteurs
+
+// ---------- cacao
+const menages = sec => DATA.menages.filter(m => sec==='Tout' || m.Section===sec);
+const SRC = [['Rev_Cacao','Cacao'],['Rev_Agroforesterie','Agroforesterie'],['Rev_Hors_Ferme','Activités hors ferme'],['Rev_Transferts','Transferts et autres'],['Rev_Elevage','Élevage'],['Rev_Cafe','Café'],['Rev_Autres_Cultures','Autres cultures vivrières']];
+function cacaoStats(ms){
+  const tot = ms.reduce((a,m)=>a+m.Revenu_Net_Total_USD,0);
+  const under = ms.filter(m => m.Revenu_Net_Total_USD < m.Seuil_LI_Ajuste_USD);
+  return {
+    n: ms.length, rev: median(ms.map(m=>m.Revenu_Net_Total_USD)),
+    ref: mean(ms.map(m=>m.Atteint_LI_Menage_Ref)), adj: mean(ms.map(m=>m.Atteint_LI_Ajuste_Taille)),
+    gap: median(under.map(m=>m.Seuil_LI_Ajuste_USD - m.Revenu_Net_Total_USD)),
+    pcj: median(ms.map(m=>m.Revenu_par_personne_jour)),
+    sous215: mean(ms.map(m=>m.Revenu_par_personne_jour < P['Seuil pauvreté extrême (USD/pers/jour)'] ? 1 : 0)),
+    solde: mean(ms.map(m=>m.Solde_Revenu_Depenses_USD < 0 ? 1 : 0)),
+    taille: mean(ms.map(m=>m.Taille_Menage)),
+    partCacao: tot ? ms.reduce((a,m)=>a+m.Rev_Cacao,0)/tot : null,
+    rdt: median(ms.map(m=>m.Rendement_kg_ha)), prix: median(ms.map(m=>m.Prix_kg_USD)), sup: median(ms.map(m=>m.Superficie_Cacao_ha)),
+    femmes: ms.filter(m=>m.Sexe==='Femme').length,
+    sources: SRC.map(([k,l]) => [l, tot ? ms.reduce((a,m)=>a+(m[k]||0),0)/tot : 0])
+  };
+}
+
+// ---------- charts
+let charts = [];
+function killCharts(){ charts.forEach(c => c.destroy()); charts = []; }
+function baseOpts(extra={}){
+  const ink = tok('muted'), grid = tok('line');
+  return Object.assign({
+    responsive:true, maintainAspectRatio:false, animation:{duration:300},
+    plugins:{ legend:{ position:'top', align:'start', labels:{ color:tok('ink'), boxWidth:12, boxHeight:12, font:{family:'IBM Plex Sans', size:12} } },
+              tooltip:{ callbacks:{} } },
+    scales:{ x:{ ticks:{color:ink, font:{family:'IBM Plex Sans', size:12}}, grid:{display:false}, border:{color:grid} },
+             y:{ ticks:{color:ink, font:{family:'IBM Plex Sans', size:12}}, grid:{color:grid}, border:{display:false}, beginAtZero:true } }
+  }, extra);
+}
+// étiquettes de valeur au bout des barres
+const valueLabels = fmt => ({ id:'vl', afterDatasetsDraw(chart){
+  const {ctx} = chart; ctx.save(); ctx.font = '500 11px "IBM Plex Sans", sans-serif'; ctx.fillStyle = tok('ink');
+  chart.data.datasets.forEach((ds,i) => { if (ds.noLabel) return; const meta = chart.getDatasetMeta(i); if (meta.hidden || meta.type==='line') return;
+    meta.data.forEach((el,j) => { const v = ds.data[j]; if (v == null) return; const horiz = chart.options.indexAxis==='y';
+      if (ds.stack && chart.data.datasets.length>1 && !ds.topOfStack) return;
+      const txt = fmt(ds.topOfStack ? ds.totals[j] : v, i);
+      ctx.textAlign = horiz ? 'left' : 'center'; ctx.textBaseline = horiz ? 'middle' : 'bottom';
+      horiz ? ctx.fillText(txt, el.x + 6, el.y) : ctx.fillText(txt, el.x, el.y - 4); }); });
+  ctx.restore(); }});
+function mk(id, cfg){ const el = document.getElementById(id); if (!el || !window.Chart) return; charts.push(new Chart(el, cfg)); }
+
+// ---------- pieces
+const kpi = (lab, val, color, note='') => `<div class="kpi" style="--k:var(--${color})"><span class="lab">${lab}</span><span class="val">${val}</span>${note?`<span class="note">${note}</span>`:''}</div>`;
+const sel = (id, lab, opts, cur) => `<label for="${id}">${lab}<select id="${id}">${['Tout',...opts].map(o=>`<option value="${esc(o)}"${String(o)===String(cur)?' selected':''}>${o==='Tout'?'Toutes':esc(o)}</option>`).join('')}</select></label>`;
+const head = (t, p, f='') => `<div class="page-head"><div><h2>${t}</h2><p>${p}</p></div>${f?`<div class="filters">${f}</div>`:''}</div>`;
+
+// ================= PAGES
+function pSynthese(){
+  const s25 = sum(cells('2025','Tout')), cs = cacaoStats(DATA.menages);
+  const q = DATA.qualite;
+  return head('Synthèse pour la direction','Chiffres clés café (campagne 2025) et cacao (enquête revenu vital, mars 2024).') +
+  `<div class="kpis">
+    ${kpi('Producteurs café 2025', n0(s25.n), 'coffee')}
+    ${kpi('Femmes', pc(s25.femmes/s25.n), 'coffee')}
+    ${kpi('Jeunes 15-35 ans', pc(pJeunes(s25)), 'coffee')}
+    ${kpi('Superficie café (ha)', n0(s25.sup), 'coffee')}
+    ${kpi('Certifiés conformes', pc(s25.conforme/s25.n), 'coffee')}
+  </div>
+  <div class="kpis">
+    ${kpi('Ménages cacao enquêtés', n0(cs.n), 'green')}
+    ${kpi('Revenu net médian (USD/an)', n0(cs.rev), 'green', 'Seuil : '+n0(LI)+' USD/an')}
+    ${kpi('Au-dessus du seuil (réf. 6 pers.)', pc(cs.ref,0), 'green')}
+    ${kpi('Au-dessus du seuil ajusté', pc(cs.adj,0), 'green', 'Taille réelle : '+nf1.format(cs.taille)+' pers.')}
+    ${kpi('Contrôles qualité critiques', q.filter(r=>r.Gravite==='Critique').length+' / '+q.length, 'red')}
+  </div>
+  <div class="grid">
+    <section class="card s6"><h3>Producteurs café enregistrés par campagne</h3><p class="cap">Doublement en 2024-2025 lié à l'intégration de COOPADE puis COOKURU</p><div class="chart"><canvas id="c-evol" aria-label="Producteurs café par campagne, coopératives historiques et nouvelles"></canvas></div></section>
+    <section class="card s6"><h3>Ménages cacao atteignant le revenu vital, par section</h3><p class="cap">Seuil de référence (ménage de 6) et seuil ajusté à la taille réelle du ménage</p><div class="chart"><canvas id="c-li" aria-label="Part des ménages au-dessus du revenu vital par section"></canvas></div></section>
+    <section class="card s12"><h3>Messages clés</h3>
+      <ol class="msgs">
+        <li><b>Couverture</b> : ${n0(s25.n)} producteurs café en 2025 (×3,2 depuis 2019), ${pc(s25.femmes/s25.n)} de femmes et ${pc(pJeunes(s25))} de jeunes. La hausse vient surtout de 2 nouvelles coopératives ; les coopératives historiques progressent de +68&#8239;%.</li>
+        <li><b>Revenu cacao</b> : revenu net médian de ${n0(cs.rev)} USD/an. ${pc(cs.ref,0)} des ménages dépassent le seuil de référence, mais ${pc(cs.adj,0)} seulement une fois le seuil ajusté à la taille des ménages.</li>
+        <li><b>Vulnérabilité</b> : ${pc(cs.partCacao,0)} du revenu vient du cacao, et ${pc(cs.sous215,0)} des ménages vivent avec moins de 2,15 USD par personne et par jour.</li>
+        <li class="alert">Données : production, chiffre d'affaires et marge café sont calculés par paramètres fixes et ne mesurent pas l'impact. Collecter les ventes réelles est la priorité.</li>
+      </ol></section>
+  </div>
+  <p class="foot">Sources : base consolidée Rikolto café 2019-2025 (42&#8239;433 lignes) ; enquête Living Income Cacao Okapi (88 ménages, mars 2024) ; Anker Research Institute (2025).</p>`;
+}
+function cSynthese(){
+  const hist = YEARS.map(y => sum(DATA.cafe.filter(c=>c.annee===y && (c.op==='CKK'||c.op==='COOKKANZ'))).n||0);
+  const neu = YEARS.map(y => sum(DATA.cafe.filter(c=>c.annee===y && !(c.op==='CKK'||c.op==='COOKKANZ'))).n||0);
+  const tot = hist.map((v,i)=>v+neu[i]);
+  mk('c-evol',{type:'bar',data:{labels:YEARS,datasets:[
+    {label:'CKK et COOKKANZ (historiques)',data:hist,backgroundColor:tok('coffee'),stack:'s'},
+    {label:'COOPADE et COOKURU (nouvelles)',data:neu,backgroundColor:tok('tan'),stack:'s',topOfStack:true,totals:tot}]},
+    options:baseOpts({scales:{...baseOpts().scales,x:{...baseOpts().scales.x,stacked:true},y:{...baseOpts().scales.y,stacked:true,grace:'10%'}}}),plugins:[valueLabels(v=>n0(v))]});
+  const secs = SECTIONS.map(s=>[s,cacaoStats(menages(s))]).sort((a,b)=>b[1].ref-a[1].ref);
+  mk('c-li',{type:'bar',data:{labels:secs.map(s=>s[0]),datasets:[
+    {label:'Seuil de référence',data:secs.map(s=>s[1].ref),backgroundColor:tok('sage')},
+    {label:'Seuil ajusté à la taille',data:secs.map(s=>s[1].adj),backgroundColor:tok('green')}]},
+    options:baseOpts({indexAxis:'y',scales:{x:{...baseOpts().scales.y,max:1,ticks:{...baseOpts().scales.y.ticks,callback:v=>Math.round(v*100)+' %'}},y:{...baseOpts().scales.x}}}),plugins:[valueLabels(v=>pc(v,0))]});
+}
+
+function pBenef(){
+  const cs = cells(state.annee, state.op), s = sum(cs);
+  const ret = retention(state.annee, state.op);
+  const scope = state.annee==='Tout' ? 'toutes campagnes' : 'campagne '+state.annee;
+  const rows = OPS.map(op => { const x = sum(cells(state.annee, op)); if (!x.n) return ''; const r = retention(state.annee, op);
+    return `<tr><td>${op}</td><td class="n">${n0(x.n)}</td><td class="n${x.femmes/x.n<0.15?' low':''}">${pc(x.femmes/x.n)}</td><td class="n${pJeunes(x)<0.3?' low':''}">${pc(pJeunes(x))}</td><td class="n">${nf2.format(x.sup/x.n)}</td><td class="n">${pc(x.conforme/x.n)}</td><td class="n">${r==null?'<span title="Coopérative nouvelle : moins de 30 producteurs la campagne précédente">–</span>':pc(r)}</td></tr>`; }).join('');
+  const t = sum(cells(state.annee,'Tout'));
+  return head('Café : bénéficiaires et inclusion','Effectifs, genre, jeunesse, fidélisation et certification. Les filtres s’appliquent à toute la page.',
+    sel('f-annee','Campagne',YEARS,state.annee)+sel('f-op','Coopérative',OPS,state.op)) +
+  `<div class="kpis">
+    ${kpi('Personnes', n0(uniques(state.annee,state.op)), 'coffee', n0(s.n)+' inscriptions · '+scope)}
+    ${kpi('Nouveaux producteurs', n0(s.nouveaux), 'coffee')}
+    ${kpi('Rétention vs campagne précédente', ret==null?'–':pc(ret), 'coffee', ret==null?'Non applicable (OP nouvelle ou 2019)':'Sur la dernière campagne sélectionnée')}
+    ${kpi('Femmes', pc(s.femmes/s.n), 'coffee')}
+    ${kpi('Jeunes 15-35 ans', pc(pJeunes(s)), 'coffee')}
+  </div>
+  <div class="grid">
+    <section class="card s7"><h3>Producteurs par campagne et coopérative</h3><p class="cap">L'essentiel de la croissance vient de COOPADE (2024) et COOKURU (2025)</p><div class="chart"><canvas id="c-coop" aria-label="Producteurs par campagne et coopérative"></canvas></div></section>
+    <section class="card s5"><h3>Part des femmes et des jeunes</h3><p class="cap">Jeunes : de 61&#8239;% (2019) à 32&#8239;% (2023), puis reprise avec les nouvelles OP</p><div class="chart"><canvas id="c-incl" aria-label="Part des femmes et des jeunes par campagne"></canvas></div></section>
+    <section class="card s8"><h3>Profil des coopératives</h3><p class="cap">${scope} · en rouge : femmes sous 15&#8239;% ou jeunes sous 30&#8239;%</p>
+      <div class="tbl"><table><thead><tr><th>Coopérative</th><th class="n">Producteurs</th><th class="n">Femmes</th><th class="n">Jeunes</th><th class="n">Ha moyen</th><th class="n">Conformes</th><th class="n">Rétention</th></tr></thead>
+      <tbody>${rows}<tr class="tot"><td>Ensemble</td><td class="n">${n0(t.n)}</td><td class="n">${pc(t.femmes/t.n)}</td><td class="n">${pc(pJeunes(t))}</td><td class="n">${nf2.format(t.sup/t.n)}</td><td class="n">${pc(t.conforme/t.n)}</td><td class="n">${pc(retention(state.annee,'Tout'))}</td></tr></tbody></table></div></section>
+    <section class="card s4"><h3>Statut de certification bio / fairtrade</h3><p class="cap">COOKURU : 100&#8239;% en conversion en 2025</p><div class="chart"><canvas id="c-cert" aria-label="Répartition des statuts de certification"></canvas></div></section>
+  </div>
+  <p class="foot">Rétention = producteurs de N-1 présents en N, calculée sur la dernière campagne sélectionnée ; vide pour une OP nouvelle. ${n0(DATA.uniques.fideles7)} producteurs sont présents sur les 7 campagnes.</p>`;
+}
+function cBenef(){
+  const pal = {CKK:tok('green'),COOKKANZ:tok('coffee'),COOKURU:tok('amber'),COOPADE:tok('slate')};
+  const ops = state.op==='Tout' ? OPS : [state.op];
+  mk('c-coop',{type:'bar',data:{labels:YEARS,datasets:ops.map(op=>({label:op,data:YEARS.map(y=>sum(cells(String(y),op)).n||0),backgroundColor:pal[op],stack:'s',noLabel:true}))},
+    options:baseOpts({scales:{...baseOpts().scales,x:{...baseOpts().scales.x,stacked:true},y:{...baseOpts().scales.y,stacked:true}}})});
+  const ser = YEARS.map(y=>sum(cells(String(y),state.op)));
+  mk('c-incl',{type:'line',data:{labels:YEARS,datasets:[
+    {label:'Jeunes 15-35 ans',data:ser.map(pJeunes),borderColor:tok('green'),backgroundColor:tok('green'),borderWidth:3,pointRadius:4,tension:.25},
+    {label:'Femmes',data:ser.map(s=>s.n?s.femmes/s.n:null),borderColor:tok('coffee'),backgroundColor:tok('coffee'),borderWidth:3,pointRadius:4,tension:.25}]},
+    options:baseOpts({scales:{x:baseOpts().scales.x,y:{...baseOpts().scales.y,max:.7,ticks:{...baseOpts().scales.y.ticks,callback:v=>Math.round(v*100)+' %'}}},
+      plugins:{...baseOpts().plugins,tooltip:{callbacks:{label:c=>c.dataset.label+' : '+pc(c.raw)}}}})});
+  const s = sum(cells(state.annee,state.op));
+  mk('c-cert',{type:'doughnut',data:{labels:['Conforme','En conversion','Non conforme','Non renseigné'],datasets:[{data:[s.conforme,s.conversion,s.non_conforme,s.non_renseigne],backgroundColor:[tok('green'),tok('amber'),tok('red'),tok('line')],borderColor:tok('surface'),borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{color:tok('ink'),boxWidth:12,font:{family:'IBM Plex Sans',size:12}}},tooltip:{callbacks:{label:c=>c.label+' : '+n0(c.raw)+' ('+pc(c.raw/s.n)+')'}}}}});
+}
+
+function pEco(){
+  const s = sum(cells(state.annee,state.op));
+  const matrix = OPS.filter(op=>state.op==='Tout'||op===state.op).map(op=>`<tr><td>${op}</td>${YEARS.map(y=>{const x=cells(String(y),op)[0];return `<td class="n">${x?n0(x.sup):''}</td>`;}).join('')}<td class="n"><b>${n0(sum(cells('Tout',op)).sup)}</b></td></tr>`).join('');
+  const tr = YEARS.map(y=>n0(sum(cells(String(y),state.op)).sup));
+  return head('Café : production et économie','À lire avec prudence : production, chiffre d’affaires et marge sont calculés par paramètres, pas mesurés.',
+    sel('f-annee','Campagne',YEARS,state.annee)+sel('f-op','Coopérative',OPS,state.op)) +
+  `<div class="kpis">
+    ${kpi('Superficie déclarée (ha)', n0(s.sup), 'amber')}
+    ${kpi('Superficie moyenne (ha)', s.n?nf2.format(s.sup/s.n):'–', 'amber')}
+    ${kpi('Production <span class="tag-est">estimée</span>', n0(s.prod_t)+' t', 'amber', 'cerise')}
+    ${kpi('Chiffre d’affaires <span class="tag-est">estimé</span>', nf1.format(s.ca/1e6)+' M', 'amber', 'USD')}
+    ${kpi('Marge / producteur <span class="tag-est">estimée</span>', n0(s.marge/s.n), 'amber', 'USD')}
+  </div>
+  <div class="grid">
+    <section class="card s6"><h3>Superficie déclarée et production estimée</h3><p class="cap">La production estimée croît 2,4 fois plus vite que la superficie : effet des paramètres de rendement</p><div class="chart"><canvas id="c-prod" aria-label="Superficie déclarée et production estimée par campagne"></canvas></div></section>
+    <section class="card s6"><h3>Marge estimée par producteur (USD)</h3><p class="cap">Marge = 60&#8239;% du CA pour 100&#8239;% des lignes : indicateur forfaitaire</p><div class="chart"><canvas id="c-marge" aria-label="Marge estimée par producteur et par campagne"></canvas></div></section>
+    <section class="s5 callout"><h3>Pourquoi ces chiffres ne mesurent pas l'impact</h3><ul>
+      <li>Production = superficie × densité × rendement par pied. Les deux paramètres changent chaque année (1&#8239;000 → 1&#8239;620 pieds/ha ; 1,5 → 2,5 kg/pied).</li>
+      <li>Chiffre d'affaires = production × 0,55 USD/kg, un prix unique sur 7 ans.</li>
+      <li>Coût = 40&#8239;% et marge = 60&#8239;% du CA pour 100&#8239;% des lignes.</li>
+      <li>La colonne « Prix unitaire » reprend en réalité le taux de transformation cerise → parche.</li></ul>
+      <p class="reco">Seule la superficie (0,55 ha en moyenne, stable) est déclarée. Recommandation : collecter les ventes réelles par producteur.</p></section>
+    <section class="card s7"><h3>Superficie déclarée (ha) par coopérative et campagne</h3><p class="cap">Donnée déclarée : l'indicateur le plus fiable du volet économique</p>
+      <div class="tbl"><table><thead><tr><th>Coopérative</th>${YEARS.map(y=>`<th class="n">${y}</th>`).join('')}<th class="n">Total</th></tr></thead><tbody>${matrix}
+      <tr class="tot"><td>Total</td>${tr.map(v=>`<td class="n">${v==='0'?'':v}</td>`).join('')}<td class="n">${n0(sum(cells('Tout',state.op)).sup)}</td></tr></tbody></table></div></section>
+  </div>
+  <p class="foot">Densité, rendement par pied et taux cerise → parche sont constants pour une campagne donnée dans la base. Le filtre Campagne ne s'applique pas aux graphiques par campagne.</p>`;
+}
+function cEco(){
+  const ser = YEARS.map(y=>sum(cells(String(y),state.op)));
+  const o = baseOpts();
+  mk('c-prod',{data:{labels:YEARS,datasets:[
+    {type:'bar',label:'Superficie déclarée (ha)',data:ser.map(s=>s.sup||0),backgroundColor:tok('sage'),yAxisID:'y',noLabel:true},
+    {type:'line',label:'Production estimée (t cerise)',data:ser.map(s=>s.prod_t||0),borderColor:tok('coffee'),backgroundColor:tok('coffee'),borderWidth:3,pointRadius:3,tension:.3,yAxisID:'y'}]},
+    options:baseOpts({scales:{x:o.scales.x,y:{...o.scales.y,ticks:{...o.scales.y.ticks,callback:v=>nf0.format(v)}}}})});
+  mk('c-marge',{type:'bar',data:{labels:YEARS,datasets:[{label:'Marge estimée par producteur',data:ser.map(s=>s.n?s.marge/s.n:null),backgroundColor:tok('amber')}]},
+    options:baseOpts({plugins:{...o.plugins,legend:{display:false}},scales:{x:o.scales.x,y:{...o.scales.y,grace:'12%'}}}),plugins:[valueLabels(v=>n0(v))]});
+}
+
+function pCacao(){
+  const ms = menages(state.section), s = cacaoStats(ms);
+  const lev = SECTIONS.map(sec=>{const x=cacaoStats(menages(sec));return `<tr><td>${sec}</td><td class="n">${x.n}</td><td class="n">${nf1.format(x.taille)}</td><td class="n">${nf1.format(x.sup)}</td><td class="n">${n0(x.rdt)}</td><td class="n">${nf2.format(x.prix)}</td></tr>`;}).join('');
+  const all = cacaoStats(DATA.menages);
+  const ok = DATA.okapi.filter(o=>state.section==='Tout'||o.section===state.section).map(o=>`<tr><td>${o.section}</td><td class="n">${o.planteurs}</td><td class="n">${n0(o.sup_cacao)}</td><td class="n">${nf1.format(o.sup_cacao/o.planteurs)}</td><td class="n">${pc(o.sup_cacao/o.sup_tot,0)}</td></tr>`).join('');
+  return head('Cacao : revenu des ménages et écart au revenu vital','Enquête Living Income, 88 ménages Cacao Okapi, mars 2024 · seuil Anker RDC rurale 2025.',
+    sel('f-sec','Section',SECTIONS,state.section)) +
+  `<div class="kpis">
+    ${kpi('Revenu net médian (USD/an)', n0(s.rev), 'green')}
+    ${kpi('Seuil revenu vital (USD/an)', n0(LI), 'green', 'Ménage de référence : 6 personnes')}
+    ${kpi('Au-dessus du seuil (réf.)', pc(s.ref,0), 'green')}
+    ${kpi('Au-dessus du seuil ajusté', pc(s.adj,0), 'green')}
+    ${kpi('Écart médian au seuil ajusté', n0(s.gap), 'green', 'USD/an, ménages sous le seuil')}
+    ${kpi('Revenu / personne / jour', nf2.format(s.pcj), 'green', 'USD, médiane')}
+  </div>
+  <div class="grid">
+    <section class="card s6"><h3>Revenu net médian par section (USD/an)</h3><p class="cap">Ligne pointillée : seuil de ${n0(LI)} USD/an</p><div class="chart"><canvas id="c-rev" aria-label="Revenu net médian par section"></canvas></div></section>
+    <section class="card s6"><h3>Composition du revenu net</h3><p class="cap">Forte dépendance au cacao : un choc de prix touche tout le revenu</p><div class="chart"><canvas id="c-src" aria-label="Part de chaque source dans le revenu net"></canvas></div></section>
+  </div>
+  <div class="kpis" style="margin-top:16px;margin-bottom:16px">
+    ${kpi('Part du cacao dans le revenu', pc(s.partCacao,0), 'red')}
+    ${kpi('Sous 2,15 USD / personne / jour', pc(s.sous215,0), 'red')}
+    ${kpi('Dépenses supérieures au revenu', pc(s.solde,0), 'red')}
+    ${kpi('Personnes par ménage', nf1.format(s.taille), 'red', 'contre 6 dans le ménage de référence')}
+  </div>
+  <div class="grid">
+    <section class="card s6"><h3>Leviers : rendement, prix, taille du ménage</h3><p class="cap">Mayuano : rendement ×2 mais prix ÷2</p>
+      <div class="tbl"><table><thead><tr><th>Section</th><th class="n">Ménages</th><th class="n">Taille</th><th class="n">Ha</th><th class="n">kg/ha</th><th class="n">USD/kg</th></tr></thead><tbody>${lev}
+      <tr class="tot"><td>Total</td><td class="n">${all.n}</td><td class="n">${nf1.format(all.taille)}</td><td class="n">${nf1.format(all.sup)}</td><td class="n">${n0(all.rdt)}</td><td class="n">${nf2.format(all.prix)}</td></tr></tbody></table></div></section>
+    <section class="card s6"><h3>Base planteurs Cacao Okapi (301 planteurs)</h3><p class="cap">Liste officielle des planteurs par section ; les sections ne recoupent pas toutes celles de l'enquête</p>
+    <div class="tbl"><table><thead><tr><th>Section</th><th class="n">Planteurs</th><th class="n">Ha cacao</th><th class="n">Ha / planteur</th><th class="n">% foncier en cacao</th></tr></thead><tbody>${ok||'<tr><td colspan="5">Aucune section Okapi de ce nom.</td></tr>'}</tbody></table></div></section>
+  </div>
+  <p class="foot">Revenu net = cacao + café + agroforesterie + autres cultures + élevage + hors ferme + transferts. La variable « living_income » du questionnaire (revenu − dépenses) n'est pas un revenu. Échantillon indicatif : ${s.n} ménages dont ${s.femmes} dirigés par des femmes.</p>`;
+}
+function cCacao(){
+  const o = baseOpts();
+  const secs = SECTIONS.map(sec=>[sec,cacaoStats(menages(sec)).rev]).sort((a,b)=>b[1]-a[1]);
+  mk('c-rev',{data:{labels:secs.map(x=>x[0]),datasets:[
+    {type:'bar',label:'Revenu net médian',data:secs.map(x=>x[1]),backgroundColor:secs.map(x=>state.section==='Tout'||x[0]===state.section?tok('green'):tok('sage'))},
+    {type:'line',label:'Seuil revenu vital',data:secs.map(()=>LI),borderColor:tok('red'),borderDash:[6,5],borderWidth:2,pointRadius:0}]},
+    options:baseOpts({plugins:{...o.plugins,legend:{display:false}},scales:{x:o.scales.x,y:{...o.scales.y,grace:'10%',ticks:{...o.scales.y.ticks,callback:v=>nf0.format(v)}}}}),plugins:[valueLabels(v=>n0(v))]});
+  const src = cacaoStats(menages(state.section)).sources;
+  mk('c-src',{type:'bar',data:{labels:src.map(x=>x[0]),datasets:[{label:'Part du revenu net',data:src.map(x=>x[1]),backgroundColor:src.map((x,i)=>i?tok('tan'):tok('coffee'))}]},
+    options:baseOpts({indexAxis:'y',plugins:{...o.plugins,legend:{display:false}},scales:{x:{...o.scales.y,beginAtZero:false,min:-0.1,max:1.1,ticks:{...o.scales.y.ticks,stepSize:.25,callback:v=>v>=0&&v<=1?Math.round(v*100)+' %':''}},y:{...o.scales.x}}}),plugins:[valueLabels(v=>pc(v))]});
+}
+
+function pQualite(){
+  const q = DATA.qualite.filter(r=>(state.base==='Tout'||r.Source===state.base)&&(state.grav==='Tout'||r.Gravite===state.grav)).sort((a,b)=>SEV_ORDER[a.Gravite]-SEV_ORDER[b.Gravite]||a.ID-b.ID);
+  const all = sum(DATA.cafe);
+  const bases = [...new Set(DATA.qualite.map(r=>r.Source))];
+  const gravs = Object.keys(SEV_ORDER).filter(g=>DATA.qualite.some(r=>r.Gravite===g));
+  return head('Qualité des données : diagnostic pour la validation','23 contrôles de complétude, unicité, cohérence, validité et représentativité.',
+    sel('f-base','Base',bases,state.base)+sel('f-grav','Gravité',gravs,state.grav)) +
+  `<div class="kpis">
+    ${kpi('Contrôles affichés', q.length, 'red')}
+    ${kpi('Critiques', q.filter(r=>r.Gravite==='Critique').length, 'red')}
+    ${kpi('Gravité élevée', q.filter(r=>r.Gravite==='Élevée').length, 'red')}
+    ${kpi('Territoire renseigné (café)', pc(all.territoire_ok/all.n), 'red')}
+    ${kpi('Cartes en doublon (café)', pc(all.doublon/all.n), 'red')}
+  </div>
+  <div class="grid">
+    <section class="card s8"><h3>Registre des contrôles qualité</h3><p class="cap">Trié par gravité · base du PV de validation</p>
+      <div class="tbl"><table><thead><tr><th>Gravité</th><th>Base</th><th>Contrôle</th><th class="n">Anomalies</th><th class="n">Taux</th><th>Impact</th></tr></thead><tbody>
+      ${q.map(r=>`<tr><td><span class="pill ${esc(r.Gravite)}">${esc(r.Gravite)}</span></td><td>${esc(r.Source)}</td><td>${esc(r.Controle)}</td><td class="n">${n0(r.Nb_Anomalies)}</td><td class="n">${pc(r.Taux)}</td><td>${esc(r.Commentaire||'')}</td></tr>`).join('')||'<tr><td colspan="6">Aucun contrôle pour ces filtres.</td></tr>'}
+      </tbody></table></div></section>
+    <div class="s4" style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <section class="card"><h3>Contrôles par dimension</h3><div class="chart" style="height:220px"><canvas id="c-dim" aria-label="Nombre de contrôles par dimension qualité"></canvas></div></section>
+      <section class="card"><h3>Pour le PV de validation</h3><ol class="pv">
+        <li>Ne pas valider en l'état les indicateurs économiques café (production, CA, marge).</li>
+        <li>Compléter territoire, collectivité et certification (2022, 2024).</li>
+        <li>Dédoublonner les 2&#8239;099 lignes à carte partagée.</li>
+        <li>Renommer « living_income » en « solde revenu − dépenses ».</li>
+        <li>Valider la base comme référentiel des bénéficiaires (effectifs, genre, âge, OP).</li></ol></section>
+    </div>
+  </div>
+  <p class="foot">Détail complet : data/qualite_controles.csv.</p>`;
+}
+function cQualite(){
+  const q = DATA.qualite.filter(r=>(state.base==='Tout'||r.Source===state.base)&&(state.grav==='Tout'||r.Gravite===state.grav));
+  const dims = {}; q.forEach(r=>dims[r.Dimension]=(dims[r.Dimension]||0)+1);
+  const d = Object.entries(dims).sort((a,b)=>b[1]-a[1]); const o = baseOpts();
+  mk('c-dim',{type:'bar',data:{labels:d.map(x=>x[0]),datasets:[{label:'Contrôles',data:d.map(x=>x[1]),backgroundColor:tok('slate')}]},
+    options:baseOpts({indexAxis:'y',plugins:{...o.plugins,legend:{display:false}},scales:{x:{...o.scales.y,grace:'15%',ticks:{...o.scales.y.ticks,precision:0}},y:o.scales.x}}),plugins:[valueLabels(v=>v)]});
+}
+
+// ================= render
+const PAGES = {synthese:[pSynthese,cSynthese],benef:[pBenef,cBenef],eco:[pEco,cEco],cacao:[pCacao,cCacao],qualite:[pQualite,cQualite]};
+function render(){
+  killCharts();
+  document.querySelectorAll('nav.tabs button').forEach(b=>{const on=b.dataset.tab===state.tab;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;});
+  const [p,c] = PAGES[state.tab];
+  const v = document.getElementById('view'); v.setAttribute('aria-labelledby','tab-'+state.tab); v.innerHTML = p();
+  if (window.Chart) { Chart.defaults.font.family = "'IBM Plex Sans', 'Segoe UI', Arial, sans-serif"; c(); }
+  [['f-annee','annee'],['f-op','op'],['f-sec','section'],['f-base','base'],['f-grav','grav']].forEach(([id,k])=>{const el=document.getElementById(id); if(el) el.addEventListener('change',e=>{state[k]=e.target.value;render();});});
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{state.tab=b.dataset.tab;try{localStorage.setItem('rk-tab',state.tab);}catch(e){}render();}));
+document.querySelector('nav.tabs').addEventListener('keydown',e=>{const ks=Object.keys(PAGES);let i=ks.indexOf(state.tab);if(e.key==='ArrowRight')i=(i+1)%ks.length;else if(e.key==='ArrowLeft')i=(i-1+ks.length)%ks.length;else return;state.tab=ks[i];render();document.getElementById('tab-'+state.tab).focus();});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',render);
+new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(()=>render());
+render();
+</script>

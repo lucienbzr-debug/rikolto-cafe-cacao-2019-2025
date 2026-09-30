@@ -1,0 +1,617 @@
+﻿ID_Menage,Source,Ordre,Montant_USD
+1,Cacao,0,3640.0
+2,Cacao,0,2198.0
+3,Cacao,0,1410.0
+4,Cacao,0,5304.0
+5,Cacao,0,2670.0
+6,Cacao,0,907.0
+7,Cacao,0,1955.0
+8,Cacao,0,4640.0
+9,Cacao,0,176.5
+10,Cacao,0,3190.0
+11,Cacao,0,228.0
+12,Cacao,0,835.0
+13,Cacao,0,9820.0
+14,Cacao,0,2005.0
+15,Cacao,0,2727.0
+16,Cacao,0,3996.0
+17,Cacao,0,1265.0
+18,Cacao,0,-2315.0
+19,Cacao,0,6177.0
+20,Cacao,0,3460.0
+21,Cacao,0,2300.0
+22,Cacao,0,5244.0
+23,Cacao,0,14180.0
+24,Cacao,0,1190.0
+25,Cacao,0,6050.0
+26,Cacao,0,5930.0
+27,Cacao,0,3250.0
+28,Cacao,0,2610.0
+29,Cacao,0,11640.0
+30,Cacao,0,770.0
+31,Cacao,0,15460.0
+32,Cacao,0,6880.0
+33,Cacao,0,9600.0
+34,Cacao,0,57395.0
+35,Cacao,0,795.0
+36,Cacao,0,1440.0
+37,Cacao,0,2675.0
+38,Cacao,0,1770.0
+39,Cacao,0,965.0
+40,Cacao,0,2740.0
+41,Cacao,0,2390.0
+42,Cacao,0,4240.0
+43,Cacao,0,2740.0
+44,Cacao,0,95.0
+45,Cacao,0,1825.0
+46,Cacao,0,4280.0
+47,Cacao,0,2640.0
+48,Cacao,0,2004.4
+49,Cacao,0,530.0
+50,Cacao,0,2259.0
+51,Cacao,0,2260.0
+52,Cacao,0,3401.0
+53,Cacao,0,2240.0
+54,Cacao,0,1165.0
+55,Cacao,0,7670.0
+56,Cacao,0,4060.0
+57,Cacao,0,1241.0
+58,Cacao,0,4840.0
+59,Cacao,0,7506.0
+60,Cacao,0,2782.0
+61,Cacao,0,6170.0
+62,Cacao,0,2330.0
+63,Cacao,0,1960.5
+64,Cacao,0,1717.0
+65,Cacao,0,1387.0
+66,Cacao,0,6320.0
+67,Cacao,0,1275.0
+68,Cacao,0,1500.0
+69,Cacao,0,2130.0
+70,Cacao,0,5220.0
+71,Cacao,0,-465.0
+72,Cacao,0,770.0
+73,Cacao,0,4445.0
+74,Cacao,0,9711.0
+75,Cacao,0,9510.0
+76,Cacao,0,2380.0
+77,Cacao,0,8508.67
+78,Cacao,0,4123.0
+79,Cacao,0,4719.0
+80,Cacao,0,3550.0
+81,Cacao,0,5330.0
+82,Cacao,0,4835.0
+83,Cacao,0,4510.0
+84,Cacao,0,1610.0
+85,Cacao,0,5845.0
+86,Cacao,0,4435.0
+87,Cacao,0,11340.0
+88,Cacao,0,7751.0
+1,Café,1,0.0
+2,Café,1,0.0
+3,Café,1,0.0
+4,Café,1,95.0
+5,Café,1,0.0
+6,Café,1,0.0
+7,Café,1,0.0
+8,Café,1,0.0
+9,Café,1,0.0
+10,Café,1,0.0
+11,Café,1,0.0
+12,Café,1,0.0
+13,Café,1,0.0
+14,Café,1,0.0
+15,Café,1,0.0
+16,Café,1,0.0
+17,Café,1,0.0
+18,Café,1,0.0
+19,Café,1,0.0
+20,Café,1,0.0
+21,Café,1,0.0
+22,Café,1,0.0
+23,Café,1,305.0
+24,Café,1,0.0
+25,Café,1,0.0
+26,Café,1,0.0
+27,Café,1,0.0
+28,Café,1,0.0
+29,Café,1,0.0
+30,Café,1,0.0
+31,Café,1,0.0
+32,Café,1,0.0
+33,Café,1,0.0
+34,Café,1,0.0
+35,Café,1,0.0
+36,Café,1,0.0
+37,Café,1,0.0
+38,Café,1,0.0
+39,Café,1,0.0
+40,Café,1,0.0
+41,Café,1,0.0
+42,Café,1,0.0
+43,Café,1,0.0
+44,Café,1,0.0
+45,Café,1,0.0
+46,Café,1,0.0
+47,Café,1,0.0
+48,Café,1,0.0
+49,Café,1,0.0
+50,Café,1,0.0
+51,Café,1,0.0
+52,Café,1,0.0
+53,Café,1,0.0
+54,Café,1,0.0
+55,Café,1,0.0
+56,Café,1,0.0
+57,Café,1,0.0
+58,Café,1,0.0
+59,Café,1,0.0
+60,Café,1,0.0
+61,Café,1,0.0
+62,Café,1,0.0
+63,Café,1,0.0
+64,Café,1,0.0
+65,Café,1,0.0
+66,Café,1,0.0
+67,Café,1,0.0
+68,Café,1,0.0
+69,Café,1,0.0
+70,Café,1,0.0
+71,Café,1,0.0
+72,Café,1,1010.0
+73,Café,1,0.0
+74,Café,1,0.0
+75,Café,1,0.0
+76,Café,1,0.0
+77,Café,1,280.0
+78,Café,1,0.0
+79,Café,1,0.0
+80,Café,1,0.0
+81,Café,1,0.0
+82,Café,1,0.0
+83,Café,1,0.0
+84,Café,1,0.0
+85,Café,1,0.0
+86,Café,1,0.0
+87,Café,1,0.0
+88,Café,1,0.0
+1,"Agroforesterie (banane, fruits, bois)",2,825.0
+2,"Agroforesterie (banane, fruits, bois)",2,-456.0
+3,"Agroforesterie (banane, fruits, bois)",2,0.0
+4,"Agroforesterie (banane, fruits, bois)",2,1144.0
+5,"Agroforesterie (banane, fruits, bois)",2,-125.0
+6,"Agroforesterie (banane, fruits, bois)",2,675.0
+7,"Agroforesterie (banane, fruits, bois)",2,0.0
+8,"Agroforesterie (banane, fruits, bois)",2,335.0
+9,"Agroforesterie (banane, fruits, bois)",2,285.0
+10,"Agroforesterie (banane, fruits, bois)",2,0.0
+11,"Agroforesterie (banane, fruits, bois)",2,185.0
+12,"Agroforesterie (banane, fruits, bois)",2,2150.0
+13,"Agroforesterie (banane, fruits, bois)",2,680.0
+14,"Agroforesterie (banane, fruits, bois)",2,345.0
+15,"Agroforesterie (banane, fruits, bois)",2,345.0
+16,"Agroforesterie (banane, fruits, bois)",2,-320.0
+17,"Agroforesterie (banane, fruits, bois)",2,0.0
+18,"Agroforesterie (banane, fruits, bois)",2,425.0
+19,"Agroforesterie (banane, fruits, bois)",2,-50.0
+20,"Agroforesterie (banane, fruits, bois)",2,0.0
+21,"Agroforesterie (banane, fruits, bois)",2,295.0
+22,"Agroforesterie (banane, fruits, bois)",2,-1010.0
+23,"Agroforesterie (banane, fruits, bois)",2,-1140.0
+24,"Agroforesterie (banane, fruits, bois)",2,-630.0
+25,"Agroforesterie (banane, fruits, bois)",2,285.0
+26,"Agroforesterie (banane, fruits, bois)",2,-1540.0
+27,"Agroforesterie (banane, fruits, bois)",2,0.0
+28,"Agroforesterie (banane, fruits, bois)",2,-580.0
+29,"Agroforesterie (banane, fruits, bois)",2,-1360.0
+30,"Agroforesterie (banane, fruits, bois)",2,-560.0
+31,"Agroforesterie (banane, fruits, bois)",2,-100.0
+32,"Agroforesterie (banane, fruits, bois)",2,-1030.0
+33,"Agroforesterie (banane, fruits, bois)",2,-1080.0
+34,"Agroforesterie (banane, fruits, bois)",2,10.0
+35,"Agroforesterie (banane, fruits, bois)",2,-735.0
+36,"Agroforesterie (banane, fruits, bois)",2,-1120.0
+37,"Agroforesterie (banane, fruits, bois)",2,-1010.0
+38,"Agroforesterie (banane, fruits, bois)",2,-695.0
+39,"Agroforesterie (banane, fruits, bois)",2,-695.0
+40,"Agroforesterie (banane, fruits, bois)",2,-750.0
+41,"Agroforesterie (banane, fruits, bois)",2,-295.0
+42,"Agroforesterie (banane, fruits, bois)",2,-810.0
+43,"Agroforesterie (banane, fruits, bois)",2,-550.0
+44,"Agroforesterie (banane, fruits, bois)",2,-615.0
+45,"Agroforesterie (banane, fruits, bois)",2,-335.0
+46,"Agroforesterie (banane, fruits, bois)",2,1385.0
+47,"Agroforesterie (banane, fruits, bois)",2,445.0
+48,"Agroforesterie (banane, fruits, bois)",2,460.0
+49,"Agroforesterie (banane, fruits, bois)",2,455.0
+50,"Agroforesterie (banane, fruits, bois)",2,145.0
+51,"Agroforesterie (banane, fruits, bois)",2,490.0
+52,"Agroforesterie (banane, fruits, bois)",2,1380.0
+53,"Agroforesterie (banane, fruits, bois)",2,275.0
+54,"Agroforesterie (banane, fruits, bois)",2,270.0
+55,"Agroforesterie (banane, fruits, bois)",2,1380.0
+56,"Agroforesterie (banane, fruits, bois)",2,0.0
+57,"Agroforesterie (banane, fruits, bois)",2,0.0
+58,"Agroforesterie (banane, fruits, bois)",2,820.0
+59,"Agroforesterie (banane, fruits, bois)",2,1520.0
+60,"Agroforesterie (banane, fruits, bois)",2,2220.0
+61,"Agroforesterie (banane, fruits, bois)",2,1275.0
+62,"Agroforesterie (banane, fruits, bois)",2,860.0
+63,"Agroforesterie (banane, fruits, bois)",2,-105.0
+64,"Agroforesterie (banane, fruits, bois)",2,435.0
+65,"Agroforesterie (banane, fruits, bois)",2,1135.0
+66,"Agroforesterie (banane, fruits, bois)",2,140.0
+67,"Agroforesterie (banane, fruits, bois)",2,0.0
+68,"Agroforesterie (banane, fruits, bois)",2,0.0
+69,"Agroforesterie (banane, fruits, bois)",2,0.0
+70,"Agroforesterie (banane, fruits, bois)",2,0.0
+71,"Agroforesterie (banane, fruits, bois)",2,19311.0
+72,"Agroforesterie (banane, fruits, bois)",2,120.0
+73,"Agroforesterie (banane, fruits, bois)",2,0.0
+74,"Agroforesterie (banane, fruits, bois)",2,135.0
+75,"Agroforesterie (banane, fruits, bois)",2,0.0
+76,"Agroforesterie (banane, fruits, bois)",2,-3210.0
+77,"Agroforesterie (banane, fruits, bois)",2,698.0
+78,"Agroforesterie (banane, fruits, bois)",2,0.0
+79,"Agroforesterie (banane, fruits, bois)",2,680.0
+80,"Agroforesterie (banane, fruits, bois)",2,8990.0
+81,"Agroforesterie (banane, fruits, bois)",2,0.0
+82,"Agroforesterie (banane, fruits, bois)",2,-1225.0
+83,"Agroforesterie (banane, fruits, bois)",2,0.0
+84,"Agroforesterie (banane, fruits, bois)",2,0.0
+85,"Agroforesterie (banane, fruits, bois)",2,0.0
+86,"Agroforesterie (banane, fruits, bois)",2,-517.0
+87,"Agroforesterie (banane, fruits, bois)",2,599.0
+88,"Agroforesterie (banane, fruits, bois)",2,0.0
+1,Autres cultures vivrières,3,100.0
+2,Autres cultures vivrières,3,-50.0
+3,Autres cultures vivrières,3,-50.0
+4,Autres cultures vivrières,3,0.0
+5,Autres cultures vivrières,3,0.0
+6,Autres cultures vivrières,3,70.0
+7,Autres cultures vivrières,3,-50.0
+8,Autres cultures vivrières,3,0.0
+9,Autres cultures vivrières,3,0.0
+10,Autres cultures vivrières,3,-50.0
+11,Autres cultures vivrières,3,-10.0
+12,Autres cultures vivrières,3,-10.0
+13,Autres cultures vivrières,3,205.0
+14,Autres cultures vivrières,3,0.0
+15,Autres cultures vivrières,3,0.0
+16,Autres cultures vivrières,3,200.0
+17,Autres cultures vivrières,3,0.0
+18,Autres cultures vivrières,3,425.0
+19,Autres cultures vivrières,3,0.0
+20,Autres cultures vivrières,3,0.0
+21,Autres cultures vivrières,3,-60.0
+22,Autres cultures vivrières,3,0.0
+23,Autres cultures vivrières,3,-200.0
+24,Autres cultures vivrières,3,-350.0
+25,Autres cultures vivrières,3,-20.0
+26,Autres cultures vivrières,3,-200.0
+27,Autres cultures vivrières,3,-190.0
+28,Autres cultures vivrières,3,-649.0
+29,Autres cultures vivrières,3,-100.0
+30,Autres cultures vivrières,3,-100.0
+31,Autres cultures vivrières,3,-100.0
+32,Autres cultures vivrières,3,-250.0
+33,Autres cultures vivrières,3,-150.0
+34,Autres cultures vivrières,3,-200.0
+35,Autres cultures vivrières,3,-100.0
+36,Autres cultures vivrières,3,-30.0
+37,Autres cultures vivrières,3,-150.0
+38,Autres cultures vivrières,3,800.0
+39,Autres cultures vivrières,3,-100.0
+40,Autres cultures vivrières,3,-50.0
+41,Autres cultures vivrières,3,-65.0
+42,Autres cultures vivrières,3,-50.0
+43,Autres cultures vivrières,3,0.0
+44,Autres cultures vivrières,3,-50.0
+45,Autres cultures vivrières,3,-100.0
+46,Autres cultures vivrières,3,480.0
+47,Autres cultures vivrières,3,-50.0
+48,Autres cultures vivrières,3,15.0
+49,Autres cultures vivrières,3,-20.0
+50,Autres cultures vivrières,3,-10.0
+51,Autres cultures vivrières,3,4.0
+52,Autres cultures vivrières,3,0.0
+53,Autres cultures vivrières,3,-30.0
+54,Autres cultures vivrières,3,-50.0
+55,Autres cultures vivrières,3,-40.0
+56,Autres cultures vivrières,3,0.0
+57,Autres cultures vivrières,3,60.0
+58,Autres cultures vivrières,3,-50.0
+59,Autres cultures vivrières,3,0.0
+60,Autres cultures vivrières,3,30.0
+61,Autres cultures vivrières,3,0.0
+62,Autres cultures vivrières,3,-50.0
+63,Autres cultures vivrières,3,-20.0
+64,Autres cultures vivrières,3,-20.0
+65,Autres cultures vivrières,3,0.0
+66,Autres cultures vivrières,3,-50.0
+67,Autres cultures vivrières,3,50.0
+68,Autres cultures vivrières,3,-34.0
+69,Autres cultures vivrières,3,0.0
+70,Autres cultures vivrières,3,0.0
+71,Autres cultures vivrières,3,-900.0
+72,Autres cultures vivrières,3,400.0
+73,Autres cultures vivrières,3,0.0
+74,Autres cultures vivrières,3,0.0
+75,Autres cultures vivrières,3,-200.0
+76,Autres cultures vivrières,3,0.0
+77,Autres cultures vivrières,3,-22.0
+78,Autres cultures vivrières,3,-99.5
+79,Autres cultures vivrières,3,-600.0
+80,Autres cultures vivrières,3,-145.0
+81,Autres cultures vivrières,3,0.0
+82,Autres cultures vivrières,3,0.0
+83,Autres cultures vivrières,3,-8.0
+84,Autres cultures vivrières,3,0.0
+85,Autres cultures vivrières,3,0.0
+86,Autres cultures vivrières,3,0.0
+87,Autres cultures vivrières,3,-130.0
+88,Autres cultures vivrières,3,-36.0
+1,Élevage,4,0.0
+2,Élevage,4,0.0
+3,Élevage,4,0.0
+4,Élevage,4,0.0
+5,Élevage,4,0.0
+6,Élevage,4,0.0
+7,Élevage,4,0.0
+8,Élevage,4,0.0
+9,Élevage,4,0.0
+10,Élevage,4,0.0
+11,Élevage,4,0.0
+12,Élevage,4,0.0
+13,Élevage,4,0.0
+14,Élevage,4,0.0
+15,Élevage,4,0.0
+16,Élevage,4,2275.0
+17,Élevage,4,238.0
+18,Élevage,4,0.0
+19,Élevage,4,0.0
+20,Élevage,4,0.0
+21,Élevage,4,0.0
+22,Élevage,4,0.0
+23,Élevage,4,0.0
+24,Élevage,4,0.0
+25,Élevage,4,0.0
+26,Élevage,4,59.0
+27,Élevage,4,0.0
+28,Élevage,4,0.0
+29,Élevage,4,0.0
+30,Élevage,4,0.0
+31,Élevage,4,0.0
+32,Élevage,4,0.0
+33,Élevage,4,0.0
+34,Élevage,4,0.0
+35,Élevage,4,0.0
+36,Élevage,4,0.0
+37,Élevage,4,0.0
+38,Élevage,4,0.0
+39,Élevage,4,0.0
+40,Élevage,4,80.0
+41,Élevage,4,510.0
+42,Élevage,4,410.0
+43,Élevage,4,0.0
+44,Élevage,4,686.0
+45,Élevage,4,610.0
+46,Élevage,4,0.0
+47,Élevage,4,0.0
+48,Élevage,4,0.0
+49,Élevage,4,0.0
+50,Élevage,4,-95.0
+51,Élevage,4,-24.0
+52,Élevage,4,0.0
+53,Élevage,4,-22.0
+54,Élevage,4,0.0
+55,Élevage,4,0.0
+56,Élevage,4,0.0
+57,Élevage,4,0.0
+58,Élevage,4,0.0
+59,Élevage,4,0.0
+60,Élevage,4,0.0
+61,Élevage,4,0.0
+62,Élevage,4,0.0
+63,Élevage,4,0.0
+64,Élevage,4,0.0
+65,Élevage,4,0.0
+66,Élevage,4,0.0
+67,Élevage,4,0.0
+68,Élevage,4,0.0
+69,Élevage,4,0.0
+70,Élevage,4,0.0
+71,Élevage,4,0.0
+72,Élevage,4,0.0
+73,Élevage,4,0.0
+74,Élevage,4,0.0
+75,Élevage,4,0.0
+76,Élevage,4,0.0
+77,Élevage,4,0.0
+78,Élevage,4,0.0
+79,Élevage,4,0.0
+80,Élevage,4,0.0
+81,Élevage,4,0.0
+82,Élevage,4,0.0
+83,Élevage,4,0.0
+84,Élevage,4,0.0
+85,Élevage,4,0.0
+86,Élevage,4,0.0
+87,Élevage,4,0.0
+88,Élevage,4,0.0
+1,Activités hors ferme,5,0.0
+2,Activités hors ferme,5,0.0
+3,Activités hors ferme,5,0.0
+4,Activités hors ferme,5,0.0
+5,Activités hors ferme,5,0.0
+6,Activités hors ferme,5,0.0
+7,Activités hors ferme,5,0.0
+8,Activités hors ferme,5,0.0
+9,Activités hors ferme,5,0.0
+10,Activités hors ferme,5,0.0
+11,Activités hors ferme,5,0.0
+12,Activités hors ferme,5,0.0
+13,Activités hors ferme,5,1000.0
+14,Activités hors ferme,5,0.0
+15,Activités hors ferme,5,0.0
+16,Activités hors ferme,5,0.0
+17,Activités hors ferme,5,0.0
+18,Activités hors ferme,5,0.0
+19,Activités hors ferme,5,0.0
+20,Activités hors ferme,5,0.0
+21,Activités hors ferme,5,0.0
+22,Activités hors ferme,5,300.0
+23,Activités hors ferme,5,0.0
+24,Activités hors ferme,5,0.0
+25,Activités hors ferme,5,0.0
+26,Activités hors ferme,5,0.0
+27,Activités hors ferme,5,0.0
+28,Activités hors ferme,5,0.0
+29,Activités hors ferme,5,0.0
+30,Activités hors ferme,5,0.0
+31,Activités hors ferme,5,0.0
+32,Activités hors ferme,5,0.0
+33,Activités hors ferme,5,0.0
+34,Activités hors ferme,5,2500.0
+35,Activités hors ferme,5,5250.0
+36,Activités hors ferme,5,1500.0
+37,Activités hors ferme,5,0.0
+38,Activités hors ferme,5,0.0
+39,Activités hors ferme,5,2500.0
+40,Activités hors ferme,5,0.0
+41,Activités hors ferme,5,0.0
+42,Activités hors ferme,5,0.0
+43,Activités hors ferme,5,0.0
+44,Activités hors ferme,5,0.0
+45,Activités hors ferme,5,0.0
+46,Activités hors ferme,5,0.0
+47,Activités hors ferme,5,0.0
+48,Activités hors ferme,5,0.0
+49,Activités hors ferme,5,0.0
+50,Activités hors ferme,5,0.0
+51,Activités hors ferme,5,0.0
+52,Activités hors ferme,5,500.0
+53,Activités hors ferme,5,0.0
+54,Activités hors ferme,5,1200.0
+55,Activités hors ferme,5,0.0
+56,Activités hors ferme,5,0.0
+57,Activités hors ferme,5,0.0
+58,Activités hors ferme,5,50.0
+59,Activités hors ferme,5,300.0
+60,Activités hors ferme,5,0.0
+61,Activités hors ferme,5,100.0
+62,Activités hors ferme,5,0.0
+63,Activités hors ferme,5,850.0
+64,Activités hors ferme,5,0.0
+65,Activités hors ferme,5,0.0
+66,Activités hors ferme,5,400.0
+67,Activités hors ferme,5,0.0
+68,Activités hors ferme,5,0.0
+69,Activités hors ferme,5,0.0
+70,Activités hors ferme,5,0.0
+71,Activités hors ferme,5,0.0
+72,Activités hors ferme,5,0.0
+73,Activités hors ferme,5,0.0
+74,Activités hors ferme,5,1000.0
+75,Activités hors ferme,5,0.0
+76,Activités hors ferme,5,0.0
+77,Activités hors ferme,5,300.0
+78,Activités hors ferme,5,0.0
+79,Activités hors ferme,5,0.0
+80,Activités hors ferme,5,0.0
+81,Activités hors ferme,5,2000.0
+82,Activités hors ferme,5,0.0
+83,Activités hors ferme,5,0.0
+84,Activités hors ferme,5,0.0
+85,Activités hors ferme,5,0.0
+86,Activités hors ferme,5,0.0
+87,Activités hors ferme,5,0.0
+88,Activités hors ferme,5,600.0
+1,Transferts et autres revenus,6,0.0
+2,Transferts et autres revenus,6,0.0
+3,Transferts et autres revenus,6,0.0
+4,Transferts et autres revenus,6,0.0
+5,Transferts et autres revenus,6,0.0
+6,Transferts et autres revenus,6,0.0
+7,Transferts et autres revenus,6,0.0
+8,Transferts et autres revenus,6,0.0
+9,Transferts et autres revenus,6,0.0
+10,Transferts et autres revenus,6,0.0
+11,Transferts et autres revenus,6,0.0
+12,Transferts et autres revenus,6,0.0
+13,Transferts et autres revenus,6,0.0
+14,Transferts et autres revenus,6,0.0
+15,Transferts et autres revenus,6,0.0
+16,Transferts et autres revenus,6,0.0
+17,Transferts et autres revenus,6,0.0
+18,Transferts et autres revenus,6,2300.0
+19,Transferts et autres revenus,6,0.0
+20,Transferts et autres revenus,6,1.0
+21,Transferts et autres revenus,6,0.0
+22,Transferts et autres revenus,6,0.0
+23,Transferts et autres revenus,6,0.0
+24,Transferts et autres revenus,6,0.0
+25,Transferts et autres revenus,6,0.0
+26,Transferts et autres revenus,6,0.0
+27,Transferts et autres revenus,6,0.0
+28,Transferts et autres revenus,6,0.0
+29,Transferts et autres revenus,6,0.0
+30,Transferts et autres revenus,6,0.0
+31,Transferts et autres revenus,6,0.0
+32,Transferts et autres revenus,6,0.0
+33,Transferts et autres revenus,6,0.0
+34,Transferts et autres revenus,6,0.0
+35,Transferts et autres revenus,6,0.0
+36,Transferts et autres revenus,6,0.0
+37,Transferts et autres revenus,6,0.0
+38,Transferts et autres revenus,6,0.0
+39,Transferts et autres revenus,6,2500.0
+40,Transferts et autres revenus,6,0.0
+41,Transferts et autres revenus,6,0.0
+42,Transferts et autres revenus,6,0.0
+43,Transferts et autres revenus,6,0.0
+44,Transferts et autres revenus,6,0.0
+45,Transferts et autres revenus,6,0.0
+46,Transferts et autres revenus,6,1.0
+47,Transferts et autres revenus,6,1.0
+48,Transferts et autres revenus,6,0.0
+49,Transferts et autres revenus,6,0.0
+50,Transferts et autres revenus,6,0.0
+51,Transferts et autres revenus,6,0.0
+52,Transferts et autres revenus,6,0.0
+53,Transferts et autres revenus,6,1.0
+54,Transferts et autres revenus,6,0.0
+55,Transferts et autres revenus,6,0.0
+56,Transferts et autres revenus,6,0.0
+57,Transferts et autres revenus,6,0.0
+58,Transferts et autres revenus,6,0.0
+59,Transferts et autres revenus,6,0.0
+60,Transferts et autres revenus,6,1.0
+61,Transferts et autres revenus,6,0.0
+62,Transferts et autres revenus,6,0.0
+63,Transferts et autres revenus,6,1.0
+64,Transferts et autres revenus,6,0.0
+65,Transferts et autres revenus,6,0.0
+66,Transferts et autres revenus,6,1.0
+67,Transferts et autres revenus,6,0.0
+68,Transferts et autres revenus,6,0.0
+69,Transferts et autres revenus,6,0.0
+70,Transferts et autres revenus,6,100.0
+71,Transferts et autres revenus,6,50.0
+72,Transferts et autres revenus,6,0.0
+73,Transferts et autres revenus,6,0.0
+74,Transferts et autres revenus,6,20.0
+75,Transferts et autres revenus,6,0.0
+76,Transferts et autres revenus,6,0.0
+77,Transferts et autres revenus,6,0.0
+78,Transferts et autres revenus,6,500.0
+79,Transferts et autres revenus,6,0.0
+80,Transferts et autres revenus,6,0.0
+81,Transferts et autres revenus,6,0.0
+82,Transferts et autres revenus,6,55.0
+83,Transferts et autres revenus,6,0.0
+84,Transferts et autres revenus,6,0.0
+85,Transferts et autres revenus,6,100.0
+86,Transferts et autres revenus,6,0.0
+87,Transferts et autres revenus,6,0.0
+88,Transferts et autres revenus,6,200.0

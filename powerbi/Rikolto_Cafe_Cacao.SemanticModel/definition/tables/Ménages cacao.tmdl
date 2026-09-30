@@ -1,0 +1,215 @@
+/// Enquête Living Income auprès de 88 ménages cacao Cacao Okapi (RDC, mars 2024), une ligne par ménage.
+table 'Ménages cacao'
+
+	/// Nombre de ménages cacao enquêtés (enquête Living Income, mars 2024).
+	measure 'Ménages enquêtés' = COUNTROWS('Ménages cacao')
+		formatString: #,##0
+		displayFolder: Échantillon
+
+	/// Benchmark Anker RDC rurale 2025 : 219 USD/mois pour un ménage de référence de 6 personnes.
+	measure 'Seuil revenu vital (USD/an)' = LOOKUPVALUE('Paramètres'[Valeur], 'Paramètres'[Paramètre], "Seuil revenu vital ménage (USD/an)")
+		formatString: #,##0
+		displayFolder: Revenu vital
+
+	/// Revenu net annuel médian du ménage, toutes sources.
+	measure 'Revenu net médian (USD/an)' = MEDIAN('Ménages cacao'[Revenu net total USD])
+		formatString: #,##0
+		displayFolder: Revenu vital
+
+	/// Moyenne tirée vers le haut par quelques très grands producteurs ; préférer la médiane.
+	measure 'Revenu net moyen (USD/an)' = AVERAGE('Ménages cacao'[Revenu net total USD])
+		formatString: #,##0
+		displayFolder: Revenu vital
+
+	/// Part des ménages dont le revenu net atteint le seuil Anker (ménage de référence de 6 personnes).
+	measure '% au-dessus du revenu vital' = AVERAGE('Ménages cacao'[Atteint revenu vital])
+		formatString: 0%
+		displayFolder: Revenu vital
+
+	/// Même indicateur, seuil proportionnel à la taille réelle du ménage (10,3 personnes en moyenne) : vision prudente.
+	measure '% au-dessus du revenu vital (ajusté taille)' = AVERAGE('Ménages cacao'[Atteint revenu vital ajusté])
+		formatString: 0%
+		displayFolder: Revenu vital
+
+	/// Pour les ménages sous le seuil : revenu annuel supplémentaire médian nécessaire.
+	measure 'Écart médian au revenu vital (USD)' = ```
+			VAR Seuil = [Seuil revenu vital (USD/an)]
+			RETURN
+			    MEDIANX(
+			        FILTER('Ménages cacao', 'Ménages cacao'[Revenu net total USD] < Seuil),
+			        Seuil - 'Ménages cacao'[Revenu net total USD]
+			    )
+			```
+		formatString: #,##0
+		displayFolder: Revenu vital
+
+	/// Pour les ménages sous le seuil ajusté à leur taille : revenu annuel supplémentaire médian nécessaire (indicateur bailleur n°8).
+	measure 'Écart médian au revenu vital ajusté (USD)' = ```
+			MEDIANX(
+			    FILTER('Ménages cacao', 'Ménages cacao'[Revenu net total USD] < 'Ménages cacao'[Seuil ajusté USD]),
+			    'Ménages cacao'[Seuil ajusté USD] - 'Ménages cacao'[Revenu net total USD]
+			)
+			```
+		formatString: #,##0
+		displayFolder: Revenu vital
+
+	/// Revenu net par membre du ménage et par jour.
+	measure 'Revenu médian par personne et par jour (USD)' = MEDIAN('Ménages cacao'[Revenu par personne et par jour])
+		formatString: 0.00
+		displayFolder: Revenu vital
+
+	/// Part des ménages sous le seuil de pauvreté extrême de la Banque mondiale.
+	measure '% sous 2,15 USD par personne et par jour' = DIVIDE(COUNTROWS(FILTER('Ménages cacao', 'Ménages cacao'[Revenu par personne et par jour] < 2.15)), [Ménages enquêtés])
+		formatString: 0%
+		displayFolder: Revenu vital
+
+	/// Dépendance au cacao : part du revenu net total provenant du cacao.
+	measure 'Part du cacao dans le revenu' = DIVIDE(SUM('Ménages cacao'[Revenu cacao USD]), SUM('Ménages cacao'[Revenu net total USD]))
+		formatString: 0%
+		displayFolder: Revenu vital
+
+	/// Ménages dont les dépenses déclarées dépassent le revenu net.
+	measure '% ménages dépenses supérieures au revenu' = DIVIDE(COUNTROWS(FILTER('Ménages cacao', 'Ménages cacao'[Solde revenu dépenses USD] < 0)), [Ménages enquêtés])
+		formatString: 0%
+		displayFolder: Revenu vital
+
+	/// Rendement cacao médian par hectare productif.
+	measure 'Rendement médian (kg/ha)' = MEDIAN('Ménages cacao'[Rendement kg ha])
+		formatString: #,##0
+		displayFolder: Production
+
+	/// Prix de vente médian du cacao.
+	measure 'Prix médian (USD/kg)' = MEDIAN('Ménages cacao'[Prix kg USD])
+		formatString: 0.00
+		displayFolder: Production
+
+	/// Nombre moyen de personnes par ménage.
+	measure 'Taille moyenne du ménage' = AVERAGE('Ménages cacao'[Taille ménage])
+		formatString: 0.0
+		displayFolder: Échantillon
+
+	/// Superficie cacao médiane par ménage.
+	measure 'Superficie cacao médiane (ha)' = MEDIAN('Ménages cacao'[Superficie cacao ha])
+		formatString: 0.0
+		displayFolder: Production
+
+	/// Identifiant du ménage enquêté.
+	column 'ID ménage'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: ID_Menage
+
+	/// Section Cacao Okapi (Babungwe, Mambasa, Mayuano, Mungamba).
+	column Section
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Section
+
+	/// Sexe du chef de ménage enquêté.
+	column Sexe
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Sexe
+
+	/// Âge du répondant.
+	column 'Âge'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Age
+
+	/// Nombre de membres du ménage.
+	column 'Taille ménage'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Taille_Menage
+
+	/// Superficie cacao totale du ménage.
+	column 'Superficie cacao ha'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Superficie_Cacao_ha
+
+	/// Production cacao / superficie productive.
+	column 'Rendement kg ha'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Rendement_kg_ha
+
+	/// Recette cacao / quantité vendue.
+	column 'Prix kg USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Prix_kg_USD
+
+	/// Somme des revenus nets : cacao, café, agroforesterie, autres cultures, élevage, hors ferme, transferts.
+	column 'Revenu net total USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Revenu_Net_Total_USD
+
+	/// Variable 'living_income' du questionnaire = revenu net − dépenses déclarées du ménage.
+	column 'Solde revenu dépenses USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Solde_Revenu_Depenses_USD
+
+	/// Seuil de revenu vital proportionnel à la taille du ménage (2 628 / 6 × taille).
+	column 'Seuil ajusté USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Seuil_LI_Ajuste_USD
+
+	/// Revenu net cacao.
+	column 'Revenu cacao USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Rev_Cacao
+
+	/// 1 si revenu net ≥ 2 628 USD/an (ménage de référence Anker 6 personnes).
+	column 'Atteint revenu vital'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Atteint_LI_Menage_Ref
+
+	/// 1 si revenu net ≥ seuil ajusté à la taille réelle du ménage.
+	column 'Atteint revenu vital ajusté'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Atteint_LI_Ajuste_Taille
+
+	/// Revenu net / taille du ménage / 365.
+	column 'Revenu par personne et par jour'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Revenu_par_personne_jour
+
+	/// 1 si revenu, rendement ou prix extrême (à vérifier sur le terrain).
+	column 'Valeur extrême'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Flag_Outlier
+
+	partition 'Ménages cacao' = m
+		mode: import
+		source =
+				let
+				    // Lecture du fichier CSV nettoyé produit par l'analyse
+				    #"Fichier lu" = Csv.Document(File.Contents(DossierDonnees & "fact_cacao_menages.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"En-têtes promus" = Table.PromoteHeaders(#"Fichier lu", [PromoteAllScalars = true]),
+				    #"Colonnes retenues" = Table.SelectColumns(#"En-têtes promus", {"ID_Menage", "Section", "Sexe", "Age", "Taille_Menage", "Superficie_Cacao_ha", "Rendement_kg_ha", "Prix_kg_USD", "Revenu_Net_Total_USD", "Solde_Revenu_Depenses_USD", "Seuil_LI_Ajuste_USD", "Rev_Cacao", "Atteint_LI_Menage_Ref", "Atteint_LI_Ajuste_Taille", "Revenu_par_personne_jour", "Flag_Outlier"}),
+				    #"Types appliqués" = Table.TransformColumnTypes(#"Colonnes retenues", {{"ID_Menage", Int64.Type}, {"Section", type text}, {"Sexe", type text}, {"Age", Int64.Type}, {"Taille_Menage", Int64.Type}, {"Superficie_Cacao_ha", Currency.Type}, {"Rendement_kg_ha", Currency.Type}, {"Prix_kg_USD", Currency.Type}, {"Revenu_Net_Total_USD", Currency.Type}, {"Solde_Revenu_Depenses_USD", Currency.Type}, {"Seuil_LI_Ajuste_USD", Currency.Type}, {"Rev_Cacao", Currency.Type}, {"Atteint_LI_Menage_Ref", Int64.Type}, {"Atteint_LI_Ajuste_Taille", Int64.Type}, {"Revenu_par_personne_jour", Currency.Type}, {"Flag_Outlier", Int64.Type}}, "en-US")
+				in
+				    #"Types appliqués"
+

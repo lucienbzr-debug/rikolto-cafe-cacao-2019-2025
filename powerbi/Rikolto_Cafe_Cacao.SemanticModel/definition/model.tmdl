@@ -1,0 +1,21 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table Campagne
+ref table 'Producteurs café'
+ref table 'Ménages cacao'
+ref table 'Sources de revenu cacao'
+ref table 'Planteurs Okapi'
+ref table 'Contrôles qualité'
+ref table 'Paramètres'
+
+ref cultureInfo fr-FR
+

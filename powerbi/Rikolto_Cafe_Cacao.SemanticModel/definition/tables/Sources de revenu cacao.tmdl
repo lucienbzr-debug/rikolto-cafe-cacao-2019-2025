@@ -1,0 +1,53 @@
+/// Décomposition du revenu net de chaque ménage cacao par source (format long).
+table 'Sources de revenu cacao'
+
+	/// Revenu net annuel cumulé par source.
+	measure 'Revenu net par source (USD)' = SUM('Sources de revenu cacao'[Montant USD])
+		formatString: #,##0
+		displayFolder: Revenu
+
+	/// Part de la source dans le revenu net total.
+	measure 'Part de la source' = DIVIDE([Revenu net par source (USD)], CALCULATE([Revenu net par source (USD)], REMOVEFILTERS('Sources de revenu cacao'[Source], 'Sources de revenu cacao'[Ordre])))
+		formatString: 0.0%
+		displayFolder: Revenu
+
+	/// Clé vers Ménages cacao.
+	column 'ID ménage'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: ID_Menage
+
+	/// Source de revenu.
+	column Source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Source
+		sortByColumn: Ordre
+
+	/// Ordre d'affichage des sources.
+	column Ordre
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Ordre
+
+	/// Revenu net annuel de la source.
+	column 'Montant USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Montant_USD
+
+	partition 'Sources de revenu cacao' = m
+		mode: import
+		source =
+				let
+				    // Lecture du fichier CSV nettoyé produit par l'analyse
+				    #"Fichier lu" = Csv.Document(File.Contents(DossierDonnees & "fact_cacao_sources_revenu.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"En-têtes promus" = Table.PromoteHeaders(#"Fichier lu", [PromoteAllScalars = true]),
+				    #"Colonnes retenues" = Table.SelectColumns(#"En-têtes promus", {"ID_Menage", "Source", "Ordre", "Montant_USD"}),
+				    #"Types appliqués" = Table.TransformColumnTypes(#"Colonnes retenues", {{"ID_Menage", Int64.Type}, {"Source", type text}, {"Ordre", Int64.Type}, {"Montant_USD", Currency.Type}}, "en-US")
+				in
+				    #"Types appliqués"
+

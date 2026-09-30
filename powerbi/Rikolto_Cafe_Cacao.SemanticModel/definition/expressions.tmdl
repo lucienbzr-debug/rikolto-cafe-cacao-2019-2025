@@ -1,0 +1,2 @@
+/// Dossier contenant les CSV du dépôt (data). Relancer build_model.py après un déplacement du dépôt.
+expression DossierDonnees = "C:\Users\Lbzr\Desktop\Base des données Café cacao\rikolto-cafe-cacao-2019-2025\data\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]

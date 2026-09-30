@@ -1,0 +1,281 @@
+/// Base consolidée Rikolto des producteurs de café 2019-2025 (une ligne par producteur et par campagne).
+/// Les variables économiques sont des ESTIMATIONS par paramètres fixes, pas des mesures terrain.
+table 'Producteurs café'
+
+	/// Nombre de producteurs enregistrés (une ligne par producteur et par campagne).
+	measure Producteurs = COUNTROWS('Producteurs café')
+		formatString: #,##0
+		displayFolder: Bénéficiaires
+
+	/// Nombre de personnes distinctes (identifiant longitudinal) sur la période filtrée.
+	measure 'Producteurs uniques' = DISTINCTCOUNT('Producteurs café'[ID producteur])
+		formatString: #,##0
+		displayFolder: Bénéficiaires
+
+	/// Nombre de productrices.
+	measure Femmes = CALCULATE([Producteurs], 'Producteurs café'[Sexe] = "Femme")
+		formatString: #,##0
+		displayFolder: Inclusion
+
+	/// Part des femmes parmi les producteurs.
+	measure '% femmes' = DIVIDE([Femmes], [Producteurs])
+		formatString: 0.0%
+		displayFolder: Inclusion
+
+	/// Part des 15-35 ans parmi les producteurs dont l'âge est connu.
+	measure '% jeunes (15-35 ans)' = ```
+			DIVIDE(
+			    CALCULATE([Producteurs], 'Producteurs café'[Catégorie d’âge] = "Jeune (15-35)"),
+			    CALCULATE([Producteurs], NOT ISBLANK('Producteurs café'[Catégorie d’âge]))
+			)
+			```
+		formatString: 0.0%
+		displayFolder: Inclusion
+
+	/// Superficie caféière totale déclarée.
+	measure 'Superficie totale (ha)' = SUM('Producteurs café'[Superficie ha])
+		formatString: #,##0
+		displayFolder: Production
+
+	/// Superficie moyenne par producteur (donnée déclarée, non estimée).
+	measure 'Superficie moyenne (ha)' = AVERAGE('Producteurs café'[Superficie ha])
+		formatString: 0.00
+		displayFolder: Production
+
+	/// Production de cerise ESTIMÉE par modèle (superficie × densité × rendement/pied). Ne pas présenter comme une production mesurée.
+	measure 'Production estimée (t cerise)' = DIVIDE(SUM('Producteurs café'[Production cerise kg]), 1000)
+		formatString: #,##0
+		displayFolder: Économie (estimations)
+
+	/// Chiffre d'affaires ESTIMÉ = production estimée × 0,55 USD/kg (prix unique 2019-2025).
+	measure 'CA estimé (USD)' = SUM('Producteurs café'[CA USD])
+		formatString: #,##0
+		displayFolder: Économie (estimations)
+
+	/// Marge forfaitaire = 60 % du CA estimé. Aucun coût réel n'est collecté.
+	measure 'Marge estimée (USD)' = SUM('Producteurs café'[Marge USD])
+		formatString: #,##0
+		displayFolder: Économie (estimations)
+
+	/// Marge forfaitaire moyenne par producteur.
+	measure 'Marge estimée par producteur (USD)' = DIVIDE([Marge estimée (USD)], [Producteurs])
+		formatString: #,##0
+		displayFolder: Économie (estimations)
+
+	/// Part des producteurs au statut bio/fairtrade Conforme (les non renseignés restent au dénominateur).
+	measure '% certifiés conformes' = DIVIDE(CALCULATE([Producteurs], 'Producteurs café'[Certification] = "Conforme"), [Producteurs])
+		formatString: 0.0%
+		displayFolder: Certification
+
+	/// Part des producteurs sans statut de certification saisi.
+	measure '% certification non renseignée' = DIVIDE(CALCULATE([Producteurs], 'Producteurs café'[Certification] = "Non renseigné"), [Producteurs])
+		formatString: 0.0%
+		displayFolder: Qualité
+
+	/// Producteurs apparaissant pour la première fois dans la base.
+	measure 'Nouveaux producteurs' = SUM('Producteurs café'[Nouveau])
+		formatString: #,##0
+		displayFolder: Bénéficiaires
+
+	/// Nombre de producteurs lors de la campagne précédant la campagne sélectionnée.
+	measure 'Producteurs N-1' = ```
+			VAR AnneeCourante = MAX(Campagne[Année])
+			RETURN
+			    CALCULATE([Producteurs], REMOVEFILTERS(Campagne), Campagne[Année] = AnneeCourante - 1)
+			```
+		formatString: #,##0
+		displayFolder: Bénéficiaires
+
+	/// Part des producteurs de la campagne N-1 toujours présents en N. Plusieurs campagnes sélectionnées : calculé sur la plus récente. Vide si moins de 30 producteurs en N-1 (coopérative nouvelle).
+	measure 'Taux de rétention' = ```
+			VAR AnneeCourante = MAX(Campagne[Année])
+			VAR BaseN1 = [Producteurs N-1]
+			RETURN
+			    IF(
+			        BaseN1 >= 30,
+			        DIVIDE(
+			            CALCULATE(SUM('Producteurs café'[Présent N-1]), REMOVEFILTERS(Campagne), Campagne[Année] = AnneeCourante),
+			            BaseN1
+			        )
+			    )
+			```
+		formatString: 0.0%
+		displayFolder: Bénéficiaires
+
+	/// Évolution du nombre de producteurs par rapport à la campagne précédente.
+	measure 'Croissance vs N-1' = DIVIDE([Producteurs] - [Producteurs N-1], [Producteurs N-1])
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Bénéficiaires
+
+	/// Taux de complétude du champ Territoire.
+	measure '% territoire renseigné' = DIVIDE(CALCULATE([Producteurs], 'Producteurs café'[Territoire] <> "Non renseigné"), [Producteurs])
+		formatString: 0.0%
+		displayFolder: Qualité
+
+	/// Part des lignes dont la carte membre est partagée avec une autre ligne de la même campagne.
+	measure '% cartes en doublon' = DIVIDE(SUM('Producteurs café'[Carte en doublon]), [Producteurs])
+		formatString: 0.0%
+		displayFolder: Qualité
+
+	/// Producteurs présents lors des 7 campagnes 2019-2025.
+	measure 'Fidèles 7 campagnes' = CALCULATE([Producteurs uniques], 'Producteurs café'[Nb campagnes de présence] = 7)
+		formatString: #,##0
+		displayFolder: Bénéficiaires
+
+	/// Identifiant unique producteur × campagne.
+	column 'ID saison'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ID_Saison
+
+	/// Identifiant longitudinal consolidé (Nom + Sexe + OP) sur 2019-2025.
+	column 'ID producteur'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: ID_Producteur
+
+	/// Sexe du bénéficiaire.
+	column Sexe
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Sexe
+
+	/// Âge déclaré lors de la campagne.
+	column 'Âge'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Age
+
+	/// Jeune (15-35 ans) ou Adulte (36 ans et +).
+	column 'Catégorie d’âge'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Classe_Age
+
+	/// Organisation paysanne de base (CKK, COOKKANZ, COOPADE, COOKURU).
+	column 'Coopérative'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Cooperative
+
+	/// Village du bénéficiaire (22 % non renseigné).
+	column Village
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Village
+
+	/// Collectivité administrative (45 % non renseignée).
+	column 'Collectivité'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Collectivite
+
+	/// Territoire administratif ; 'Non renseigné' pour 36 % des lignes.
+	column Territoire
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Territoire
+
+	/// Année de campagne (clé vers Campagne).
+	column 'Année'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Annee
+
+	/// Numéro de carte de membre.
+	column 'Carte membre'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Carte_Membre
+
+	/// Superficie cultivée déclarée (ha).
+	column 'Superficie ha'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Superficie_ha
+
+	/// Production ESTIMÉE = superficie × densité × rendement/pied (paramètres fixes).
+	column 'Production cerise kg'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Production_Cerise_kg
+
+	/// Chiffre d'affaires ESTIMÉ = production × 0,55 USD.
+	column 'CA USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: CA_USD
+
+	/// Coût forfaitaire = 40 % du CA.
+	column 'Coût USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Cout_USD
+
+	/// Marge forfaitaire = 60 % du CA.
+	column 'Marge USD'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Marge_USD
+
+	/// Statut bio / fairtrade : Conforme, En conversion, Non conforme, Non renseigné.
+	column Certification
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Certification
+
+	/// 1 lors de la première apparition du producteur sur 2019-2025.
+	column Nouveau
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Nouveau
+
+	/// 1 si le producteur était aussi présent la campagne précédente.
+	column 'Présent N-1'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Present_N_1
+
+	/// Nombre de campagnes où le producteur apparaît (1 à 7).
+	column 'Nb campagnes de présence'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Nb_Annees_Presence
+
+	/// 1 si la carte membre est partagée par plusieurs lignes de la même campagne.
+	column 'Carte en doublon'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Flag_Carte_Doublon
+
+	/// 1 si l'âge varie de plus de 2 ans par rapport à l'écart de campagnes.
+	column 'Âge incohérent'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Flag_Age_Incoherent
+
+	partition 'Producteurs café' = m
+		mode: import
+		source =
+				let
+				    // Lecture du fichier CSV nettoyé produit par l'analyse
+				    #"Fichier lu" = Csv.Document(File.Contents(DossierDonnees & "fact_cafe_producteurs.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"En-têtes promus" = Table.PromoteHeaders(#"Fichier lu", [PromoteAllScalars = true]),
+				    #"Colonnes retenues" = Table.SelectColumns(#"En-têtes promus", {"ID_Saison", "ID_Producteur", "Sexe", "Age", "Classe_Age", "Cooperative", "Village", "Collectivite", "Territoire", "Annee", "Carte_Membre", "Superficie_ha", "Production_Cerise_kg", "CA_USD", "Cout_USD", "Marge_USD", "Certification", "Nouveau", "Present_N_1", "Nb_Annees_Presence", "Flag_Carte_Doublon", "Flag_Age_Incoherent"}),
+				    #"Types appliqués" = Table.TransformColumnTypes(#"Colonnes retenues", {{"ID_Saison", type text}, {"ID_Producteur", Int64.Type}, {"Sexe", type text}, {"Age", Int64.Type}, {"Classe_Age", type text}, {"Cooperative", type text}, {"Village", type text}, {"Collectivite", type text}, {"Territoire", type text}, {"Annee", Int64.Type}, {"Carte_Membre", type text}, {"Superficie_ha", Currency.Type}, {"Production_Cerise_kg", Currency.Type}, {"CA_USD", Currency.Type}, {"Cout_USD", Currency.Type}, {"Marge_USD", Currency.Type}, {"Certification", type text}, {"Nouveau", Int64.Type}, {"Present_N_1", Int64.Type}, {"Nb_Annees_Presence", Int64.Type}, {"Flag_Carte_Doublon", Int64.Type}, {"Flag_Age_Incoherent", Int64.Type}}, "en-US")
+				in
+				    #"Types appliqués"
+

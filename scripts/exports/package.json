@@ -1,0 +1,11 @@
+{
+  "name": "rikolto-cafe-cacao-exports",
+  "private": true,
+  "description": "Génération du deck PowerPoint du comité de direction",
+  "scripts": {
+    "pptx": "node build_pptx.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

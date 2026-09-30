@@ -1,0 +1,8 @@
+relationship 'Producteurs café to Campagne'
+	fromColumn: 'Producteurs café'.Année
+	toColumn: Campagne.Année
+
+relationship 'Sources de revenu to Ménages cacao'
+	fromColumn: 'Sources de revenu cacao'.'ID ménage'
+	toColumn: 'Ménages cacao'.'ID ménage'
+

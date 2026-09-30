@@ -1,0 +1,34 @@
+/// Paramètres de référence utilisés dans les calculs (seuils de revenu vital et de pauvreté), avec leurs sources.
+table 'Paramètres'
+
+	/// Nom du paramètre.
+	column 'Paramètre'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Parametre
+
+	/// Valeur numérique.
+	column Valeur
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Valeur
+
+	/// Source documentaire.
+	column Source
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Source
+
+	partition 'Paramètres' = m
+		mode: import
+		source =
+				let
+				    // Lecture du fichier CSV nettoyé produit par l'analyse
+				    #"Fichier lu" = Csv.Document(File.Contents(DossierDonnees & "parametres.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"En-têtes promus" = Table.PromoteHeaders(#"Fichier lu", [PromoteAllScalars = true]),
+				    #"Colonnes retenues" = Table.SelectColumns(#"En-têtes promus", {"Parametre", "Valeur", "Source"}),
+				    #"Types appliqués" = Table.TransformColumnTypes(#"Colonnes retenues", {{"Parametre", type text}, {"Valeur", Currency.Type}, {"Source", type text}}, "en-US")
+				in
+				    #"Types appliqués"
+

@@ -1,0 +1,71 @@
+{
+  "name": "RikoltoCafeCacao-ecf51958.json",
+  "dataColors": [
+    "#1F5C4A",
+    "#8C5A3C",
+    "#C98A1E",
+    "#4A6FA5",
+    "#7A9E7E",
+    "#B23A48",
+    "#6B6F76",
+    "#D6B68A"
+  ],
+  "foreground": "#1E2A26",
+  "background": "#FFFFFF",
+  "tableAccent": "#1F5C4A",
+  "good": "#1F5C4A",
+  "neutral": "#C98A1E",
+  "bad": "#B23A48",
+  "textClasses": {
+    "callout": {
+      "fontSize": 20,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1E2A26"
+    },
+    "title": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1E2A26"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1E2A26"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#5B6560"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E3E0D8"
+              }
+            },
+            "radius": 8
+          }
+        ],
+        "padding": [
+          {
+            "top": 8,
+            "bottom": 8,
+            "left": 10,
+            "right": 10
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ]
+      }
+    }
+  }
+}

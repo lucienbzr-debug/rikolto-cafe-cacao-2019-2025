@@ -1,0 +1,23 @@
+# Power BI : paramètres locaux et cache de données
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Node et Python
+node_modules/
+__pycache__/
+*.pyc
+
+# Fichiers générés pendant la construction
+scripts/exports/dashboard_artifact.html
+scripts/exports/dashboard_data.json
+scripts/exports/_check.js
+
+# Fichiers temporaires Office et système
+~$*
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Données sources non pseudonymisées : ne jamais publier
+sources/
+*.zip

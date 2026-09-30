@@ -1,0 +1,86 @@
+/// Liste des 301 planteurs de la coopérative Cacao Okapi (une ligne par planteur).
+table 'Planteurs Okapi'
+
+	/// Nombre de planteurs listés.
+	measure 'Planteurs Okapi' = COUNTROWS('Planteurs Okapi')
+		formatString: #,##0
+		displayFolder: Planteurs
+
+	/// Superficie cacao totale déclarée.
+	measure 'Superficie cacao Okapi (ha)' = SUM('Planteurs Okapi'[Superficie cacao ha])
+		formatString: #,##0
+		displayFolder: Planteurs
+
+	/// Superficie cacao moyenne par planteur.
+	measure 'Superficie cacao moyenne Okapi (ha)' = AVERAGE('Planteurs Okapi'[Superficie cacao ha])
+		formatString: 0.0
+		displayFolder: Planteurs
+
+	/// Superficie cacao / superficie totale des champs.
+	measure 'Part du foncier en cacao' = DIVIDE(SUM('Planteurs Okapi'[Superficie cacao ha]), SUM('Planteurs Okapi'[Superficie totale ha]))
+		formatString: 0%
+		displayFolder: Planteurs
+
+	/// Lignes dont le code planteur apparaît plusieurs fois.
+	measure 'Codes planteurs en doublon' = SUM('Planteurs Okapi'[Code en doublon])
+		formatString: #,##0
+		displayFolder: Qualité
+
+	/// Code planteur (28 codes en doublon).
+	column 'Code planteur'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Code_Planteur
+
+	/// Section / onglet de la liste.
+	column Section
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Section
+
+	/// Axe géographique.
+	column Axe
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Axe
+
+	/// Corporation de base.
+	column Corporation
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Corporation
+
+	/// Superficie totale du champ.
+	column 'Superficie totale ha'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Superficie_Totale_ha
+
+	/// Superficie en cacao.
+	column 'Superficie cacao ha'
+		dataType: decimal
+		isHidden
+		summarizeBy: none
+		sourceColumn: Superficie_Cacao_ha
+
+	/// 1 si le code planteur est en doublon.
+	column 'Code en doublon'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Flag_Code_Doublon
+
+	partition 'Planteurs Okapi' = m
+		mode: import
+		source =
+				let
+				    // Lecture du fichier CSV nettoyé produit par l'analyse
+				    #"Fichier lu" = Csv.Document(File.Contents(DossierDonnees & "fact_cacao_okapi_planteurs.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"En-têtes promus" = Table.PromoteHeaders(#"Fichier lu", [PromoteAllScalars = true]),
+				    #"Colonnes retenues" = Table.SelectColumns(#"En-têtes promus", {"Code_Planteur", "Section", "Axe", "Corporation", "Superficie_Totale_ha", "Superficie_Cacao_ha", "Flag_Code_Doublon"}),
+				    #"Types appliqués" = Table.TransformColumnTypes(#"Colonnes retenues", {{"Code_Planteur", type text}, {"Section", type text}, {"Axe", type text}, {"Corporation", type text}, {"Superficie_Totale_ha", Currency.Type}, {"Superficie_Cacao_ha", Currency.Type}, {"Flag_Code_Doublon", Int64.Type}}, "en-US")
+				in
+				    #"Types appliqués"
+

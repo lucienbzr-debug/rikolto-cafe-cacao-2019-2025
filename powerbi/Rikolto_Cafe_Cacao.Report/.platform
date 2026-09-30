@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Rikolto_Cafe_Cacao"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c4d267a6-167f-4606-97a7-ab9af215e737"
+  }
+}

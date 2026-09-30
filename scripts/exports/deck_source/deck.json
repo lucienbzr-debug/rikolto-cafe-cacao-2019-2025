@@ -1,0 +1,18 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-09-30T16:10:00Z"},
+  "lists": "css",
+  "title": "Café & Cacao 2019-2025 – Comité de direction",
+  "order": ["cover", "synthese", "decisions", "perimetre", "couverture", "inclusion", "cooperatives", "economie", "cacao", "vulnerabilite", "qualite", "indicateurs", "feuille", "dashboard", "fin"],
+  "sections": {
+    "s1": {"description": "Ouverture : la réponse et les décisions attendues", "start": "cover"},
+    "s2": {"description": "Café : bénéficiaires, inclusion et limites des indicateurs économiques", "start": "perimetre"},
+    "s3": {"description": "Cacao : revenu des ménages face au revenu vital", "start": "cacao"},
+    "s4": {"description": "Qualité, indicateurs bailleur et feuille de route", "start": "qualite"}
+  },
+  "faces": {
+    "source-serif-4": {"family": "Source Serif 4", "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"},
+    "ibm-plex-sans": {"family": "IBM Plex Sans", "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"}
+  },
+  "designSystems": []
+}
