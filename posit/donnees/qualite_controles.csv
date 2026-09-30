@@ -1,0 +1,24 @@
+ID,Source,Dimension,Controle,Nb_Anomalies,Nb_Total,Taux,Gravite,Commentaire
+1,Café Rikolto,Complétude,Territoire manquant,15430,42433,0.3636,Élevée,Empêche une analyse géographique fiable
+2,Café Rikolto,Complétude,Collectivité manquante,19237,42433,0.4533,Moyenne,
+3,Café Rikolto,Complétude,Village manquant,9454,42433,0.2228,Moyenne,
+4,Café Rikolto,Complétude,Statut de certification manquant,6016,42433,0.1418,Élevée,Concentré sur 2022 et 2024
+5,Café Rikolto,Complétude,Année d'adhésion à l'OP manquante,12255,42433,0.2888,Faible,
+6,Café Rikolto,Complétude,Âge manquant,441,42433,0.0104,Faible,
+7,Café Rikolto,Unicité,N° de carte membre en doublon sur une même campagne,2099,42433,0.0495,Élevée,Risque de double comptage ou cartes réattribuées
+8,Café Rikolto,Cohérence,Âge incohérent d'une année à l'autre (écart > 2 ans),2305,29252,0.0788,Moyenne,L'identifiant longitudinal peut regrouper des personnes différentes
+9,Café Rikolto,Validité,Production = superficie × densité × rendement/pied (paramètres fixes),42433,42433,1.0,Critique,"Production estimée, non mesurée"
+10,Café Rikolto,Validité,"Chiffre d'affaires = production × 0,55 USD (prix unique 2019-2025)",42433,42433,1.0,Critique,Le CA ne reflète pas les prix réels
+11,Café Rikolto,Validité,Coût = 40 % du CA et marge = 60 % du CA,42433,42433,1.0,Critique,"Marge forfaitaire, pas de coûts réels"
+12,Café Rikolto,Validité,« Prix unitaire » identique au taux de transformation cerise→parche,38250,42433,0.9014,Élevée,Colonne probablement mal alimentée
+13,Café Rikolto,Cohérence,Marge/ha négative alors que la marge totale est positive,8047,42433,0.1896,Élevée,Deux modèles économiques contradictoires (2019-2020)
+14,Café Rikolto,Cohérence,Petite + grande saison ≠ production totale,4183,42433,0.0986,Moyenne,
+15,Café Rikolto,Cohérence,Rupture de série 2024 : +4 922 nouveaux producteurs,4922,9326,0.5278,Élevée,Intégration de COOPADE puis COOKURU (2025)
+16,Cacao LI,Validité,Variable « living_income » = revenu − dépenses (et non le revenu),88,88,1.0,Critique,Mal nommée : sous-estime fortement le revenu si lue telle quelle
+17,Cacao LI,Complétude,Questionnaires sans consentement / vides,2,90,0.0222,Faible,Exclus de l'analyse
+18,Cacao LI,Cohérence,"Noms de municipalité non normalisés (Mambas, Mayuwano…)",3,88,0.0341,Faible,Corrigés
+19,Cacao LI,Validité,"Valeurs extrêmes (revenu, rendement ou prix)",6,88,0.0682,Moyenne,"Ex. 44 ha, 15 t, revenu 59 705 USD : à vérifier sur le terrain"
+20,Cacao LI,Représentativité,Échantillon de 88 ménages dont 6 femmes,6,88,0.0682,Élevée,Résultats indicatifs ; ne pas extrapoler par sous-groupe
+21,Cacao Okapi,Unicité,Code planteur en doublon,28,301,0.093,Moyenne,
+22,Cacao Okapi,Cohérence,Superficie cacao > superficie totale,4,301,0.0133,Moyenne,
+23,Cacao Okapi,Validité,"Nb de tiges ≈ superficie × 1 100 (estimé, non compté)",228,301,0.7575,Moyenne,

@@ -6,6 +6,8 @@ Le programme touche 3,2 fois plus de producteurs de café qu'en 2019 (12 184 en 
 
 > Analyse réalisée en septembre 2026 par Lucien Buzera. Les données publiées ici sont **pseudonymisées** (voir [Protection des données](#protection-des-données)).
 
+**Voir en ligne :** [dashboard HTML](https://lucienbzr-debug.github.io/rikolto-cafe-cacao-2019-2025/) · application Shiny sur Posit Connect Cloud (dossier [`posit/`](posit/README.md)).
+
 ## Livrables
 
 | Livrable | Fichier | Contenu |
@@ -14,7 +16,8 @@ Le programme touche 3,2 fois plus de producteurs de café qu'en 2019 (12 184 en 
 | Deck comité de direction | [`livrables/Deck_Comite_direction_Cafe_Cacao.pptx`](livrables/Deck_Comite_direction_Cafe_Cacao.pptx) | 15 slides modifiables, graphiques natifs, notes d'orateur |
 | Dashboard Power BI | [`powerbi/Rikolto_Cafe_Cacao.pbip`](powerbi/Rikolto_Cafe_Cacao.pbip) | 5 pages, 7 tables, 47 mesures DAX (format PBIP) |
 | Dashboard Excel | [`livrables/Dashboard_Rikolto_Cafe_Cacao.xlsx`](livrables/Dashboard_Rikolto_Cafe_Cacao.xlsx) | Filtres campagne et coopérative, 233 formules, 6 graphiques |
-| Dashboard HTML | [`livrables/Dashboard_Rikolto_Cafe_Cacao.html`](livrables/Dashboard_Rikolto_Cafe_Cacao.html) | Page autonome à ouvrir dans un navigateur, 5 onglets filtrables, thème clair et sombre |
+| Dashboard HTML | [`livrables/Dashboard_Rikolto_Cafe_Cacao.html`](livrables/Dashboard_Rikolto_Cafe_Cacao.html) · [en ligne](https://lucienbzr-debug.github.io/rikolto-cafe-cacao-2019-2025/) | Page autonome, 5 onglets filtrables, thème clair et sombre |
+| Application Shiny | [`posit/app.R`](posit/app.R) | Même tableau de bord en R Shiny, prêt pour Posit Connect Cloud |
 
 Aperçu de la page Synthèse du dashboard Power BI :
 
@@ -41,7 +44,9 @@ Seuil de revenu vital : Anker Research Institute, valeur de référence RDC rura
 ```
 .
 ├── data/                     Tables nettoyées et pseudonymisées (CSV UTF-8) + dictionnaire
+├── docs/                     Dashboard HTML servi par GitHub Pages
 ├── livrables/                Rapport Word, deck PowerPoint, dashboards Excel et HTML
+├── posit/                    Application Shiny (R) pour Posit Connect Cloud
 ├── powerbi/
 │   ├── Rikolto_Cafe_Cacao.pbip          Projet Power BI (rapport PBIR + modèle TMDL)
 │   ├── captures/                        Captures des 5 pages
@@ -76,7 +81,10 @@ python build_excel.py       # livrables/Dashboard_Rikolto_Cafe_Cacao.xlsx
 python build_word.py        # livrables/Rapport_direction_Cafe_Cacao_2019-2025.docx
 npm install
 node build_pptx.js          # livrables/Deck_Comite_direction_Cafe_Cacao.pptx
+python build_posit_data.py  # posit/donnees (agrégats de l'application Shiny)
 ```
+
+Après une régénération du dashboard HTML, recopier `livrables/Dashboard_Rikolto_Cafe_Cacao.html` vers `docs/index.html`.
 
 Le classeur Excel est écrit par openpyxl sans valeurs calculées. Pour les calculer, ouvrez-le dans Excel ou lancez :
 
@@ -112,7 +120,7 @@ Les tables de `data/` ont été pseudonymisées avec [`scripts/anonymiser.py`](s
 | `fact_cacao_menages.csv` | Code producteur remplacé par `M-001` ; latitude et longitude supprimées |
 | `fact_cacao_okapi_planteurs.csv` | Code planteur remplacé par `P-001` ; village remplacé par un code `V-001` |
 
-Aucun résultat ne change : les indicateurs de doublon, l'âge, la taille des ménages et les revenus sont conservés. Territoire, collectivité, coopérative et section restent en clair. Les données appartiennent à Rikolto : ne rendez pas ce dépôt public sans son accord.
+Aucun résultat ne change : les indicateurs de doublon, l'âge, la taille des ménages et les revenus sont conservés. Territoire, collectivité, coopérative et section restent en clair. L'application Shiny et le dashboard HTML ne contiennent que des agrégats et les 88 ménages cacao sans identifiant. Les données restent la propriété de Rikolto RDC.
 
 ## Sources
 
