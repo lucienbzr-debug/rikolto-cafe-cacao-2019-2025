@@ -1,0 +1,37 @@
+[theme]
+font = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+headingFont = "'Source Serif 4':https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&display=swap"
+baseRadius = "0.6rem"
+
+[theme.light]
+primaryColor = "#1F5C4A"
+backgroundColor = "#FCFCFA"
+secondaryBackgroundColor = "#F1F3EF"
+textColor = "#1B2622"
+borderColor = "#DCE1DA"
+redColor = "#B23A48"
+orangeColor = "#B07A12"
+greenColor = "#1F5C4A"
+blueColor = "#4A6FA5"
+chartCategoricalColors = ["#1F5C4A", "#8C5A3C", "#B07A12", "#4A6FA5", "#9DBFAE", "#B23A48"]
+
+[theme.light.sidebar]
+backgroundColor = "#F1F3EF"
+
+[theme.dark]
+primaryColor = "#62B393"
+backgroundColor = "#111714"
+secondaryBackgroundColor = "#19211D"
+textColor = "#E4EBE7"
+borderColor = "#2B3731"
+redColor = "#E57A87"
+orangeColor = "#DDA842"
+greenColor = "#62B393"
+blueColor = "#86A6D8"
+chartCategoricalColors = ["#62B393", "#CF9670", "#DDA842", "#86A6D8", "#3F6E5A", "#E57A87"]
+
+[theme.dark.sidebar]
+backgroundColor = "#19211D"
+
+[browser]
+gatherUsageStats = false

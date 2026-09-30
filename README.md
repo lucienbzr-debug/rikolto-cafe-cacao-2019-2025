@@ -6,7 +6,7 @@ Le programme touche 3,2 fois plus de producteurs de café qu'en 2019 (12 184 en 
 
 > Analyse réalisée en septembre 2026 par Lucien Buzera. Les données publiées ici sont **pseudonymisées** (voir [Protection des données](#protection-des-données)).
 
-**Voir en ligne :** [dashboard HTML](https://lucienbzr-debug.github.io/rikolto-cafe-cacao-2019-2025/) · application Shiny sur Posit Connect Cloud (dossier [`posit/`](posit/README.md)).
+**Voir en ligne :** [dashboard HTML](https://lucienbzr-debug.github.io/rikolto-cafe-cacao-2019-2025/) · application Streamlit ([`streamlit_app.py`](streamlit_app.py)) · application Shiny sur Posit Connect Cloud (dossier [`posit/`](posit/README.md)).
 
 ## Livrables
 
@@ -17,6 +17,7 @@ Le programme touche 3,2 fois plus de producteurs de café qu'en 2019 (12 184 en 
 | Dashboard Power BI | [`powerbi/Rikolto_Cafe_Cacao.pbip`](powerbi/Rikolto_Cafe_Cacao.pbip) | 5 pages, 7 tables, 47 mesures DAX (format PBIP) |
 | Dashboard Excel | [`livrables/Dashboard_Rikolto_Cafe_Cacao.xlsx`](livrables/Dashboard_Rikolto_Cafe_Cacao.xlsx) | Filtres campagne et coopérative, 233 formules, 6 graphiques |
 | Dashboard HTML | [`livrables/Dashboard_Rikolto_Cafe_Cacao.html`](livrables/Dashboard_Rikolto_Cafe_Cacao.html) · [en ligne](https://lucienbzr-debug.github.io/rikolto-cafe-cacao-2019-2025/) | Page autonome, 5 onglets filtrables, thème clair et sombre |
+| Application Streamlit | [`streamlit_app.py`](streamlit_app.py) | Même tableau de bord en Python, 5 pages, thème clair et sombre, prêt pour Streamlit Community Cloud |
 | Application Shiny | [`posit/app.R`](posit/app.R) | Même tableau de bord en R Shiny, prêt pour Posit Connect Cloud |
 
 Aperçu de la page Synthèse du dashboard Power BI :
@@ -46,7 +47,8 @@ Seuil de revenu vital : Anker Research Institute, valeur de référence RDC rura
 ├── data/                     Tables nettoyées et pseudonymisées (CSV UTF-8) + dictionnaire
 ├── docs/                     Dashboard HTML servi par GitHub Pages
 ├── livrables/                Rapport Word, deck PowerPoint, dashboards Excel et HTML
-├── posit/                    Application Shiny (R) pour Posit Connect Cloud
+├── posit/                    Application Shiny (R) pour Posit Connect Cloud ; posit/donnees sert aussi à Streamlit
+├── streamlit_app.py          Application Streamlit (Python), avec requirements.txt et .streamlit/config.toml
 ├── powerbi/
 │   ├── Rikolto_Cafe_Cacao.pbip          Projet Power BI (rapport PBIR + modèle TMDL)
 │   ├── captures/                        Captures des 5 pages
@@ -57,6 +59,19 @@ Seuil de revenu vital : Anker Research Institute, valeur de référence RDC rura
 ```
 
 Le dictionnaire des colonnes se trouve dans [`data/README.md`](data/README.md).
+
+## Applications en ligne
+
+**Streamlit Community Cloud** : sur [share.streamlit.io](https://share.streamlit.io), **Create app** › dépôt `lucienbzr-debug/rikolto-cafe-cacao-2019-2025`, branche `main`, fichier principal `streamlit_app.py`. Les dépendances sont dans `requirements.txt` et le thème dans `.streamlit/config.toml`. En local :
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+**Posit Connect Cloud** : voir [`posit/README.md`](posit/README.md).
+
+Les deux applications lisent les mêmes agrégats (`posit/donnees`), sans ligne par producteur.
 
 ## Ouvrir le dashboard Power BI
 
